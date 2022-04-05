@@ -1,0 +1,11 @@
+Model Information:
+* title:	japanese Lamp
+* source:	https://sketchfab.com/3d-models/japanese-lamp-aae37f2c1dc848378f37f4c5fd6255f0
+* author:	rilanawelsing (https://sketchfab.com/rilanawelsing)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "japanese Lamp" (https://sketchfab.com/3d-models/japanese-lamp-aae37f2c1dc848378f37f4c5fd6255f0) by rilanawelsing (https://sketchfab.com/rilanawelsing) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

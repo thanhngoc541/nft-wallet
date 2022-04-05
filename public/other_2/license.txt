@@ -1,0 +1,11 @@
+Model Information:
+* title:	Kitchen Microwave Appliance
+* source:	https://sketchfab.com/3d-models/kitchen-microwave-appliance-f5085208560447d6b9a8948b6054f618
+* author:	Benji Labs (https://sketchfab.com/benjilabs)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Kitchen Microwave Appliance" (https://sketchfab.com/3d-models/kitchen-microwave-appliance-f5085208560447d6b9a8948b6054f618) by Benji Labs (https://sketchfab.com/benjilabs) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

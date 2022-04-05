@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tesla Model 3
+* source:	https://sketchfab.com/3d-models/tesla-model-3-117d7dbdd6f94df9886c42995cdd06db
+* author:	iSteven (https://sketchfab.com/Steven007)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tesla Model 3" (https://sketchfab.com/3d-models/tesla-model-3-117d7dbdd6f94df9886c42995cdd06db) by iSteven (https://sketchfab.com/Steven007) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

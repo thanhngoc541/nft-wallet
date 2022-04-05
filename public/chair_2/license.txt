@@ -1,0 +1,11 @@
+Model Information:
+* title:	Basket Swing Chair
+* source:	https://sketchfab.com/3d-models/basket-swing-chair-92463f2b44624180a4ed8488ce08eb83
+* author:	a.shevchuk (https://sketchfab.com/alex.shevchuk)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Basket Swing Chair" (https://sketchfab.com/3d-models/basket-swing-chair-92463f2b44624180a4ed8488ce08eb83) by a.shevchuk (https://sketchfab.com/alex.shevchuk) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

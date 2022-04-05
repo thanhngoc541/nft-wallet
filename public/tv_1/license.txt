@@ -1,0 +1,11 @@
+Model Information:
+* title:	Giant Screen TV
+* source:	https://sketchfab.com/3d-models/giant-screen-tv-7301c9c1deba4f68b6264d6ef7415e19
+* author:	321_Blender (https://sketchfab.com/321_Blender)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Giant Screen TV" (https://sketchfab.com/3d-models/giant-screen-tv-7301c9c1deba4f68b6264d6ef7415e19) by 321_Blender (https://sketchfab.com/321_Blender) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

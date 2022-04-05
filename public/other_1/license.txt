@@ -1,0 +1,11 @@
+Model Information:
+* title:	Kitchen | Blender Asset Pack
+* source:	https://sketchfab.com/3d-models/kitchen-blender-asset-pack-c6de25c3f565477fa7e938fbbab3d6e2
+* author:	Benji Labs (https://sketchfab.com/benjilabs)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Kitchen | Blender Asset Pack" (https://sketchfab.com/3d-models/kitchen-blender-asset-pack-c6de25c3f565477fa7e938fbbab3d6e2) by Benji Labs (https://sketchfab.com/benjilabs) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

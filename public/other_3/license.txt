@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dibesfer Voxel PC
+* source:	https://sketchfab.com/3d-models/dibesfer-voxel-pc-3f58754034044852a0a00e808f640508
+* author:	dibesfer (https://sketchfab.com/dibesfer)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dibesfer Voxel PC" (https://sketchfab.com/3d-models/dibesfer-voxel-pc-3f58754034044852a0a00e808f640508) by dibesfer (https://sketchfab.com/dibesfer) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

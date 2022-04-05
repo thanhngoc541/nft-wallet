@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gaming chair "Kiiro"
+* source:	https://sketchfab.com/3d-models/gaming-chair-kiiro-594c5fb9a5d946ccb4546b511624455b
+* author:	Anex (https://sketchfab.com/anex)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gaming chair "Kiiro"" (https://sketchfab.com/3d-models/gaming-chair-kiiro-594c5fb9a5d946ccb4546b511624455b) by Anex (https://sketchfab.com/anex) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

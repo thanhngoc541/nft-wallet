@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bed Agape
+* source:	https://sketchfab.com/3d-models/bed-agape-96ed3f6ba55848809dfa8cd505edddae
+* author:	Render - City (https://sketchfab.com/greshnovk)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bed Agape" (https://sketchfab.com/3d-models/bed-agape-96ed3f6ba55848809dfa8cd505edddae) by Render - City (https://sketchfab.com/greshnovk) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
