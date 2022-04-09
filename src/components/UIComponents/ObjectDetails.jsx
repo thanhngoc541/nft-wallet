@@ -78,6 +78,15 @@ export default function ObjectDetails(props) {
                             />
                         </Grid>
                     </Grid>
+                    <Button
+                        color="error"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 0 }}
+                        onClick={props.deleteFocused}
+                    >
+                        Delete
+                    </Button>
                     <Button fullWidth variant="contained" sx={{ mt: 3, mb: 0 }} onClick={props.clearFocused}>
                         OK
                     </Button>

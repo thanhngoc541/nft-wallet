@@ -184,6 +184,10 @@ function App() {
         </Suspense>
     );
     const clearFocused = () => setFocusedObject(null);
+    const deleteFocused = () => {
+        setObjects(objects.filter((obj) => obj != focusedObject));
+        setFocusedObject(null);
+    };
     console.log('APP RENDERING.......');
 
     return (
@@ -196,7 +200,12 @@ function App() {
                 addModel={addModel}
                 createWallHandle={createWallHandle}
             ></FloatingButtons>
-            <ObjectDetails mode={mode} object={focusedObject} clearFocused={clearFocused}></ObjectDetails>
+            <ObjectDetails
+                mode={mode}
+                object={focusedObject}
+                deleteFocused={deleteFocused}
+                clearFocused={clearFocused}
+            ></ObjectDetails>
             <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
                 {/* <CameraControls></CameraControls> */}
                 <Orbit></Orbit>
