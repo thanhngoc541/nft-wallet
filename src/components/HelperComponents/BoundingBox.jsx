@@ -7,11 +7,15 @@ export default ({
     visible = true,
     mass = 100,
     children,
+    rotation=[0,0,0]
 }) => {
-  const [ref,api] = useBox(()=>({mass:mass,args:dims,position:position}));
+    console.log(dims)
+  const [ref,api] = useBox(()=>({mass:mass,args:dims,position:position}),null,[position]);
+  console.log(ref)
+  console.log(api)
     return (
         <group ref={ref} api={api}>
-            <mesh scale={dims} visible={visible}>
+            <mesh scale={dims} visible={visible} rotation={rotation}>
                 <boxBufferGeometry ></boxBufferGeometry>
                 <meshPhysicalMaterial wireframe ></meshPhysicalMaterial>
             </mesh>

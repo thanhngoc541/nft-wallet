@@ -22,7 +22,7 @@ export default function ModelList(props) {
     .then(response => response.json()).catch(e=>console.error(e))
     console.log(data);
       props.addModel(new ObjectModel(`${item.root}/scene.gltf`, [0, data?.dims!=null ? data?.dims[1]/2:1, 0],
-       data?.scale??[0.01,0.01,0.01],data?.dims??[1,1,1], data?.offset??[0,0,0],data?.mass,data?.lockX,data?.lockY,data?.lockZ));
+       data?.scale??[0.01,0.01,0.01],data?.dims??[1,1,1], data?.offset??[0,0,0],data?.mass,data?.lockX,data?.lockY,data?.lockZ,data?.rotation));
       props.close()}
   return (
     <ImageList sx={{ width: 500, height: '80vh' }}>

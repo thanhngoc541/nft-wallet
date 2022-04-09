@@ -27,6 +27,6 @@ import {
             child.material.side = THREE.FrontSide;
         }
       })
-      return <primitive position={props.position} object={model.scene} scale={props.scale}></primitive>;
+      return <primitive onClick={(e)=>{props.setFocusedObject()}} rotation={props.rotation} position={props.position} object={model.scene.clone()} scale={props.scale}></primitive>;
   }
   export default Model

@@ -1,0 +1,12 @@
+{
+    "name": "Picture",
+    "scale": [1, 1, 1],
+    "dims": [2, 1.3, 0.2],
+    "offset": [0, 0, 0],
+    "rotation": [0, 3.14159265, 0],
+    "mass": 0,
+    "lockX": false,
+    "lockY": false,
+    "lockZ": true,
+    "sticky": true
+}
