@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,9 +13,25 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 export default function FloatingActionButtons(props) {
     const [openWallCreator, setOpenWallCreator] = useState(false);
     const [openAddModel, setOpenaddModel] = useState(false);
+    const inputFileRef = useRef();
+    const handleFileSelect = (evt) => {
+        let files = evt.target.files;
+        if (!files.length) {
+            alert('No file select');
+            return;
+        }
+        let file = files[0];
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            props.importData(JSON.parse(e.target.result));
+        };
+        reader.readAsText(file);
+    };
     return (
         <Box style={{ position: 'absolute', bottom: '10px', right: '10px' }} sx={{ '& > :not(style)': { m: 1 } }}>
             <SwipeableDrawer
@@ -70,6 +86,20 @@ export default function FloatingActionButtons(props) {
                 }}
             >
                 {props.mode == 'lock' ? <LockOpenIcon></LockOpenIcon> : <LockIcon></LockIcon>}
+            </Fab>
+            <Fab color="primary" aria-label="export data" onClick={props.exportData}>
+                <GetAppIcon />
+            </Fab>
+            <input type="file" hidden={true} ref={inputFileRef} id="file" onChange={handleFileSelect} name="file" />
+
+            <Fab
+                color="primary"
+                aria-label="import data"
+                onClick={() => {
+                    inputFileRef.current.click();
+                }}
+            >
+                <FileUploadIcon />
             </Fab>
         </Box>
     );

@@ -47,12 +47,15 @@ const Dragable = (props) => {
     }, []);
     useEffect(() => {
         console.log('asdasdsa');
-        controlRef.current.removeEventListener('dragstart', handleDragStart, false);
-        controlRef.current.removeEventListener('dragend', handleDragEnd, false);
-        controlRef.current.removeEventListener('drag', handleDrag, false);
+
         controlRef.current.addEventListener('dragstart', handleDragStart, false);
         controlRef.current.addEventListener('dragend', handleDragEnd, false);
         controlRef.current.addEventListener('drag', handleDrag, false);
+        return () => {
+            controlRef.current?.removeEventListener('dragstart', handleDragStart, false);
+            controlRef.current?.removeEventListener('dragend', handleDragEnd, false);
+            controlRef.current?.removeEventListener('drag', handleDrag, false);
+        };
     }, [children, props.dims]);
     return (
         <group ref={groupRef}>

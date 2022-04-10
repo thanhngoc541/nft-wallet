@@ -30,6 +30,27 @@ function App() {
     useEffect(() => {
         console.log(walls);
     }, []);
+    const saveFile = async (blob) => {
+        const a = document.createElement('a');
+        a.download = 'my-room.json';
+        a.href = URL.createObjectURL(blob);
+        a.addEventListener('click', (e) => {
+            setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+        });
+        a.click();
+    };
+    const exportData = () => {
+        const data = { walls, objects };
+        const jsonData = JSON.stringify(data);
+        console.log(jsonData);
+        const blob = new Blob([jsonData], { type: 'application/json' });
+
+        saveFile(blob);
+    };
+    const importData = (data) => {
+        setWalls(data.walls);
+        setObjects(data.objects);
+    };
     const createWallHandle = (wall) => {
         console.log('create wall');
         setWalls([...walls, wall]);
@@ -106,9 +127,10 @@ function App() {
         angle += !!a ? a : 0;
         return [x * l * customScale * Math.sin(angle), offset[1] * customScale, x * l * customScale * Math.cos(angle)];
     };
-    const getPosition = (position, dims, customScale) => {
+    const getPosition = (position, dims, customScale, lockY = true) => {
         console.log(position, dims);
-        return [position[0], (dims[1] * customScale) / 2, position[2]];
+        if (lockY) return [position[0], (dims[1] * customScale) / 2, position[2]];
+        return position;
     };
     const getObjects = () => (
         <Suspense fallback={null}>
@@ -120,7 +142,7 @@ function App() {
                             dims={object.calcDims}
                             mass={object.mass}
                             offset={getOffset(object.offset, object.customScale, object.customRotationY)}
-                            position={getPosition(object.pos, object.dims, object.customScale)}
+                            position={getPosition(object.pos, object.dims, object.customScale, object.lockY)}
                             rotation={[0, (object.customRotationY * Math.PI) / 180, 0]}
                         >
                             <Model
@@ -150,7 +172,7 @@ function App() {
                             dims={object.calcDims}
                             mass={object.mass}
                             offset={getOffset(object.offset, object.customScale, object.customRotationY)}
-                            position={getPosition(object.pos, object.dims, object.customScale)}
+                            position={getPosition(object.pos, object.dims, object.customScale, object.lockY)}
                             rotation={[0, (object.customRotationY * Math.PI) / 180, 0]}
                         >
                             <Model
@@ -195,6 +217,8 @@ function App() {
             {/* <ColorPicker></ColorPicker> */}
             {/* <CameraButton></CameraButton> */}
             <FloatingButtons
+                importData={importData}
+                exportData={exportData}
                 mode={mode}
                 setMode={setMode}
                 addModel={addModel}
@@ -209,7 +233,7 @@ function App() {
             <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
                 {/* <CameraControls></CameraControls> */}
                 <Orbit></Orbit>
-                <axesHelper args={[5]}></axesHelper>
+                {/* <axesHelper args={[5]}></axesHelper> */}
                 {/* <Suspense fallback={null}>
                     <Background></Background>
                 </Suspense> */}
@@ -217,14 +241,14 @@ function App() {
                 {/* <gridHelper args={[20, 20]} /> */}
                 <Physics>
                     {/* <Car></Car> */}
-                    <Dragable>
+                    {/* <Dragable>
                         <Suspense fallback={null}>
                             <Box position={[-1.2, 0.5, -2]} />
                         </Suspense>
                         <Suspense fallback={null}>
                             <Box position={[1.2, 0.5, -2]} />
                         </Suspense>
-                    </Dragable>
+                    </Dragable> */}
                     {getWalls()}
                     {getObjects()}
                 </Physics>
