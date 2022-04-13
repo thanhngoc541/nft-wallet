@@ -12,14 +12,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 export default function ObjectDetails(props) {
-    console.log(props);
-    const calcDims = (object) => {
-        object.calcDims = [
-            object.dims[0] * object.customScale,
-            object.dims[1] * object.customScale,
-            object.dims[2] * object.customScale,
-        ];
-    };
     return (
         <SwipeableDrawer
             hideBackdrop={true}
@@ -50,8 +42,7 @@ export default function ObjectDetails(props) {
                             </Typography>
                             <Slider
                                 onChange={(e) => {
-                                    props.object.customScale = e.target.value;
-                                    calcDims(props.object);
+                                    props.scaleObject(e.target.value);
                                 }}
                                 min={0.1}
                                 max={2}
@@ -67,7 +58,7 @@ export default function ObjectDetails(props) {
                             </Typography>
                             <Slider
                                 onChange={(e) => {
-                                    props.object.customRotationY = e.target.value;
+                                    props.rotateObject(e.target.value);
                                 }}
                                 min={-180}
                                 max={180}
