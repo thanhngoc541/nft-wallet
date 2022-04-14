@@ -16,8 +16,8 @@ import ObjectDetails from './components/UIComponents/ObjectDetails';
 function App() {
     const [walls, setWalls] = useState([
         new WallModel([16, 0.2, 10], [0, -0.1, 0], null, '/wood.jpg'),
-        new WallModel([0.2, 6, 10], [-8.1, 3, 0], 'pink'),
-        new WallModel([16, 6, 0.2], [0, 3, -5.1], 'pink'),
+        new WallModel([0.2, 6, 10.2], [-8.1, 2.8, -0.1], 'pink'),
+        new WallModel([16, 6, 0.2], [0, 2.8, -5.1], 'pink'),
     ]);
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
