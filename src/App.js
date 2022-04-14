@@ -108,13 +108,14 @@ function App() {
         currentObject = model;
     };
 
-    let placeObject = (position, args) => {
+    let placeObject = (position, args, wall = null) => {
+        console.log(wall);
         if (currentObject != null) {
             currentObject.position = position;
             if (args[1] < args[0] && args[1] < args[2]) currentObject.position[1] += currentObject.dims[1] / 2;
             if (args[0] < args[1] && args[0] < args[2]) {
                 if (currentObject.dims[2] < currentObject.dims[0] && currentObject.dims[2] < currentObject.dims[1]) {
-                    currentObject.rotation[1] += Math.PI / 2;
+                    currentObject.bufferRotation[1] += Math.PI / 2;
                     currentObject.dims[0] += currentObject.dims[2];
                     currentObject.dims[2] = currentObject.dims[0] - currentObject.dims[2];
                     currentObject.dims[0] = currentObject.dims[0] - currentObject.dims[2];
@@ -128,7 +129,7 @@ function App() {
             }
             if (args[2] < args[0] && args[2] < args[1]) {
                 if (currentObject.dims[0] < currentObject.dims[1] && currentObject.dims[0] < currentObject.dims[2]) {
-                    currentObject.rotation[1] -= Math.PI / 2;
+                    currentObject.bufferRotation[1] -= Math.PI / 2;
                     currentObject.dims[0] += currentObject.dims[2];
                     currentObject.dims[2] = currentObject.dims[0] - currentObject.dims[2];
                     currentObject.dims[0] = currentObject.dims[0] - currentObject.dims[2];
@@ -142,6 +143,9 @@ function App() {
             }
             currentObject.calcDims = [...currentObject.dims];
             currentObject.calcPosition = [...currentObject.position];
+            currentObject.calcRotation = [...currentObject.rotation];
+            currentObject.calcOffset = [...currentObject.offset];
+            currentObject.attachedWall = wall;
             setObjects([...objects, currentObject]);
             currentObject = null;
         }
@@ -197,6 +201,7 @@ function App() {
                                 }}
                                 key={object.createTime.toString()}
                                 rotation={object.calcRotation}
+                                bufferRotation={object.bufferRotation}
                                 scale={object.calcScale}
                                 path={object.url}
                             ></Model>
@@ -209,6 +214,7 @@ function App() {
                         lockX={object.lockX}
                         lockY={object.lockY}
                         lockZ={object.lockZ}
+                        attachedWall={object.attachedWall}
                         transformGroup
                         key={'dragable' + object.createTime.toString()}
                     >
@@ -228,6 +234,7 @@ function App() {
                                 }}
                                 key={object.createTime.toString()}
                                 rotation={object.calcRotation}
+                                bufferRotation={object.bufferRotation}
                                 scale={object.calcScale}
                                 path={object.url}
                             ></Model>
@@ -247,7 +254,7 @@ function App() {
                     texture={wall.texture}
                     color={wall.color}
                     args={wall.args}
-                    position={wall.pos}
+                    position={wall.position}
                 ></Wall>
             ))}
         </Suspense>

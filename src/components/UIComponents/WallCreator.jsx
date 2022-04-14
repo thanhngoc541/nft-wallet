@@ -86,7 +86,7 @@ export default (props) => {
                 </label>
                 <input
                     className="input3"
-                    onChange={(e) => (wall.pos[0] = e.target.value)}
+                    onChange={(e) => (wall.position[0] = e.target.value)}
                     defaultValue="0"
                     type="number"
                     step="0.1"
@@ -95,7 +95,7 @@ export default (props) => {
                 />
                 <input
                     className="input3"
-                    onChange={(e) => (wall.pos[1] = e.target.value)}
+                    onChange={(e) => (wall.position[1] = e.target.value)}
                     defaultValue="0"
                     type="number"
                     step="0.1"
@@ -104,7 +104,7 @@ export default (props) => {
                 />
                 <input
                     className="input3"
-                    onChange={(e) => (wall.pos[2] = e.target.value)}
+                    onChange={(e) => (wall.position[2] = e.target.value)}
                     defaultValue="0"
                     type="number"
                     step="0.1"
