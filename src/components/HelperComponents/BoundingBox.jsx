@@ -6,7 +6,7 @@ export default ({
     position = [0, 0, 0],
     offset = [0, 0, 0],
     dims = [1, 1, 1],
-    visible = true,
+    visible = false,
     mass = 100,
     children,
     rotation = [0, 0, 0],
@@ -33,3 +33,4 @@ export default ({
         </group>
     );
 };
+    

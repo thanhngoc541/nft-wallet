@@ -13,11 +13,14 @@ import FloatingButtons from './components/UIComponents/FloatingButtons';
 import WallModel from './models/wall.js';
 import BoundingBox from './components/HelperComponents/BoundingBox';
 import ObjectDetails from './components/UIComponents/ObjectDetails';
+import Background from './components/Environments/Background';
 function App() {
     const [walls, setWalls] = useState([
-        new WallModel([16, 0.2, 10], [0, -0.1, 0], null, '/wood.jpg'),
-        new WallModel([0.2, 6, 10.2], [-8.1, 2.8, -0.1], 'pink'),
-        new WallModel([16, 6, 0.2], [0, 2.8, -5.1], 'pink'),
+        new WallModel([16.39, 0.2, 10.39], [0, -0.1, 0], null, '/wood.jpg'),
+        new WallModel([0.2, 6, 10.2], [-8.1, 2.8, -0.1], 'white', null, [0, 1, 0]),
+        new WallModel([0.2, 6, 10.2], [8.1, 2.8, -0.1], 'white', null, [0, 0, 0]),
+        new WallModel([16, 6, 0.2], [0, 2.8, -5.1], 'white', null, [0, 0, 0]),
+        new WallModel([16.4, 6, 0.2], [0, 2.8, 5.1], 'white', null, [0, 0, 0]),
     ]);
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
@@ -109,7 +112,7 @@ function App() {
     };
 
     let placeObject = (position, args, wall = null) => {
-        console.log(wall);
+        // console.log(wall);
         if (currentObject != null) {
             currentObject.position = position;
             if (args[1] < args[0] && args[1] < args[2]) currentObject.position[1] += currentObject.dims[1] / 2;
@@ -253,6 +256,7 @@ function App() {
                     key={'wall' + index.toString()}
                     texture={wall.texture}
                     color={wall.color}
+                    rotation={wall.rotation}
                     args={wall.args}
                     position={wall.position}
                 ></Wall>
@@ -293,9 +297,9 @@ function App() {
                 {/* <CameraControls></CameraControls> */}
                 <Orbit></Orbit>
                 {/* <axesHelper args={[5]}></axesHelper> */}
-                {/* <Suspense fallback={null}>
+                <Suspense fallback={null}>
                     <Background></Background>
-                </Suspense> */}
+                </Suspense>
                 <Lights></Lights>
                 {/* <gridHelper args={[20, 20]} /> */}
                 <Physics>
