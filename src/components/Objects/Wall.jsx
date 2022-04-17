@@ -81,7 +81,7 @@ export default (props) => {
                         color={props.color}
                         transparent
                         side={THREE.FrontSide}
-                        opacity={1}
+                        opacity={0}
                     ></meshPhysicalMaterial>
                 </mesh>
             </group>
@@ -119,7 +119,7 @@ export default (props) => {
                 position={props.position}
             >
                 <boxBufferGeometry args={props.args}></boxBufferGeometry>
-                <meshPhysicalMaterial side={THREE.FrontSide} transparent opacity={1}></meshPhysicalMaterial>
+                <meshPhysicalMaterial side={THREE.FrontSide} transparent opacity={0}></meshPhysicalMaterial>
             </mesh>
         </group>
     );
