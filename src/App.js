@@ -1,11 +1,9 @@
 import './App.css';
-import React, { Suspense, useEffect, useState, useMemo } from 'react';
-import { Canvas, useLoader, useFrame } from '@react-three/fiber';
+import React, {Suspense, useEffect, useState} from 'react';
+import {Canvas} from '@react-three/fiber';
 import Orbit from './components/HelperComponents/Orbit';
-import Box from './components/Objects/Box';
 import Lights from './components/Objects/Lights';
-import ColorPicker from './components/UIComponents/ColorPicker';
-import { Physics } from '@react-three/cannon';
+import {Physics} from '@react-three/cannon';
 import Dragable from './components/HelperComponents/Dragable';
 import Model from './components/HelperComponents/Model';
 import Wall from './components/Objects/Wall';
@@ -13,23 +11,54 @@ import FloatingButtons from './components/UIComponents/FloatingButtons';
 import WallModel from './models/wall.js';
 import BoundingBox from './components/HelperComponents/BoundingBox';
 import ObjectDetails from './components/UIComponents/ObjectDetails';
+import * as default_json_room from './default_room.json'
+import {Bluesprint} from "./bluesprint";
+import {ConvertJson2DTo3D} from "./helpers/Convert";
+
 function App() {
-    const [walls, setWalls] = useState([
-        new WallModel([16, 0.2, 10], [0, -0.1, 0], null, '/wood.jpg'),
-        new WallModel([0.2, 6, 10], [-8.1, 3, 0], 'pink'),
-        new WallModel([16, 6, 0.2], [0, 3, -5.1], 'pink'),
-    ]);
+    let default_room = JSON.stringify(default_json_room)
+    const [walls, setWalls] = useState(ConvertJson2DTo3D(JSON.parse(default_room).floorplan));
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
     const [mode, setMode] = useState('');
-    const [count, setCount] = useState(0);
+
     let currentObject = null;
 
-    // useEffect(() => {
-    //     setCount(count + 1);
-    //     console.log(focusedObject);
-    //     console.log(count);
-    // }, [count]);
+    //2D viewer
+    useEffect(() => {
+        console.log('run use effect')
+        let options = {
+            viewer2d: {
+                id: 'bp3djs-viewer2d',
+                viewer2dOptions: {
+                    'corner-radius': 12.5,
+                    'boundary-point-radius': 5.0,
+                    'boundary-line-thickness': 2.0,
+                    'boundary-point-color': '#030303',
+                    'boundary-line-color': '#090909',
+                    pannable: true,
+                    zoomable: true,
+                    scale: false,
+                    rotate: true,
+                    translate: true,
+                    dimlinecolor: '#3E0000',
+                    dimarrowcolor: '#FF0000',
+                    dimtextcolor: '#000000',
+                    pixiAppOptions: {
+                        resolution: 1,
+                    },
+                    pixiViewportOptions: {
+                        passiveWheel: false,
+                    }
+                }
+            },
+            textureDir: "models/textures/", //Note: có vẻ vô lý
+            widget: false,
+            resize: true,
+        }
+        let blueprint = new Bluesprint(options)
+        blueprint.model.loadSerialized(default_room);
+    }, []);
 
     const saveFile = async (blob) => {
         const a = document.createElement('a');
@@ -262,38 +291,50 @@ function App() {
 
     console.log('APP RENDERING.......');
 
+    const [is3d, setIs3d] = useState(false);
+    const handleTransform = () => {
+        setIs3d(!is3d);
+    }
     return (
-        <div style={{ height: '100vh', width: '100vw' }}>
-            {/* <ColorPicker></ColorPicker> */}
-            {/* <CameraButton></CameraButton> */}
-            <FloatingButtons
-                importData={importData}
-                exportData={exportData}
-                mode={mode}
-                setMode={setMode}
-                addModel={addModel}
-                createWallHandle={createWallHandle}
-            ></FloatingButtons>
-            <ObjectDetails
-                rotateObject={(e) => rotateObject(focusedObject, e)}
-                scaleObject={(e) => scaleObject(focusedObject, e)}
-                mode={mode}
-                object={focusedObject}
-                deleteFocused={deleteFocused}
-                clearFocused={clearFocused}
-            ></ObjectDetails>
-            <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
-                {/* <CameraControls></CameraControls> */}
-                <Orbit></Orbit>
-                {/* <axesHelper args={[5]}></axesHelper> */}
-                {/* <Suspense fallback={null}>
+        <div>
+            <div id="bp3d-js-app" hidden={is3d}>
+                <button onClick={handleTransform} id="transform">
+                    Transform
+                </button>
+                <div id="bp3djs-viewer2d"/>
+            </div>
+            <div style={{ height: '100vh', width: '100vw' }} hidden={!is3d}>
+                {/* <ColorPicker></ColorPicker> */}
+                {/* <CameraButton></CameraButton> */}
+                <FloatingButtons
+                    importData={importData}
+                    exportData={exportData}
+                    mode={mode}
+                    setMode={setMode}
+                    addModel={addModel}
+                    createWallHandle={createWallHandle}
+                    handleTransform={handleTransform}
+                ></FloatingButtons>
+                <ObjectDetails
+                    rotateObject={(e) => rotateObject(focusedObject, e)}
+                    scaleObject={(e) => scaleObject(focusedObject, e)}
+                    mode={mode}
+                    object={focusedObject}
+                    deleteFocused={deleteFocused}
+                    clearFocused={clearFocused}
+                ></ObjectDetails>
+                <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
+                    {/* <CameraControls></CameraControls> */}
+                    <Orbit></Orbit>
+                    {/* <axesHelper args={[5]}></axesHelper> */}
+                    {/* <Suspense fallback={null}>
                     <Background></Background>
                 </Suspense> */}
-                <Lights></Lights>
-                {/* <gridHelper args={[20, 20]} /> */}
-                <Physics>
-                    {/* <Car></Car> */}
-                    {/* <Dragable>
+                    <Lights></Lights>
+                    {/* <gridHelper args={[20, 20]} /> */}
+                    <Physics>
+                        {/* <Car></Car> */}
+                        {/* <Dragable>
                         <Suspense fallback={null}>
                             <Box position={[-1.2, 0.5, -2]} />
                         </Suspense>
@@ -301,10 +342,11 @@ function App() {
                             <Box position={[1.2, 0.5, -2]} />
                         </Suspense>
                     </Dragable> */}
-                    {getWalls()}
-                    {getObjects()}
-                </Physics>
-            </Canvas>
+                        {getWalls()}
+                        {getObjects()}
+                    </Physics>
+                </Canvas>
+            </div>
         </div>
     );
 }
