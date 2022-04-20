@@ -23,7 +23,10 @@ export const ConvertJson2DTo3D = (data) => {
         }
     }
 
-    let floor3D = new WallModel([floorX, 0.2, floorZ], [floorX/2 + minX, 0, floorX/2 + minZ])
+    console.log('as floorX', floorX)
+    console.log('as minZ', minZ)
+    console.log('as pos floor', [floorX/2 + minX, 0.1, floorZ/2 + minZ])
+    let floor3D = new WallModel([floorX, 0.2, floorZ], [floorX/2 + minX, 0.1, floorZ/2 + minZ], null, '/wood.jpg')
 
     // sàn nhà
     walls3D.push(floor3D);
@@ -40,23 +43,23 @@ export const ConvertJson2DTo3D = (data) => {
            Oyz.push(walls[i]);
        }
     }
+    // Oyz
+
+    let wallZ = Math.abs(corners[Oyz[0].corner1].y - corners[Oyz[0].corner2].y)
+    let deltaX = Math.abs(corners[Oyz[0].corner1].x - corners[Oyz[1].corner2].x)
+
+    walls3D.push(new WallModel([0.2, 5, wallZ], [minX - 0.1, 5/2, minZ + wallZ/2], 'white', null))
+    walls3D.push(new WallModel([0.2, 5, wallZ], [minX + deltaX + 0.1, 5/2, minZ + wallZ/2], 'white', null))
+
 
     // Oxy
 
     let wallX = Math.abs(corners[Oxy[0].corner1].x - corners[Oxy[0].corner2].x)
     let deltaY = Math.abs(corners[Oxy[0].corner1].y - corners[Oxy[1].corner2].y)
 
-    walls3D.push(new WallModel([wallX, 5, 0.2], [minX + wallX / 2, 5 / 2, minZ]));
-    walls3D.push(new WallModel([wallX, 5, 0.2], [minX + wallX / 2, 5 / 2, minZ + deltaY]));
+    walls3D.push(new WallModel([wallX, 5, 0.2], [minX + wallX / 2, 5 / 2, minZ - 0.1 ], 'white', null));
+    walls3D.push(new WallModel([wallX, 5, 0.2], [minX + wallX / 2, 5 / 2, minZ + deltaY + 0.1], 'white', null));
 
-
-    // Oyz
-
-    let wallZ = Math.abs(corners[Oyz[0].corner1].y - corners[Oyz[0].corner2].y)
-    let deltaX = Math.abs(corners[Oyz[0].corner1].x - corners[Oyz[1].corner2].x)
-
-    walls3D.push(new WallModel([0.2, 5, wallZ], [minX, 5/2, minZ + wallZ/2]))
-    walls3D.push(new WallModel([0.2, 5, wallZ], [minX + deltaX, 5/2, minZ + wallZ/2]))
 
 
     console.log(walls3D)
