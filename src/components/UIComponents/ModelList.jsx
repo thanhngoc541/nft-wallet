@@ -6,7 +6,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import AddIcon from '@mui/icons-material/Add';
-import ObjectModel from '../../models/object';
+import ObjectModel from '../../model-3d/object';
 export default function ModelList(props) {
   let itemModel = [];
   for(let i=1;i<=props.number;i++) {

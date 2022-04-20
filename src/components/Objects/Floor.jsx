@@ -1,12 +1,14 @@
 import React from 'react'
-import {  useBox } from '@react-three/cannon'
+import {Shape} from "three";
+import * as THREE from "three";
 export default (props) => {
-  const [ref,api] = useBox(()=>({args: [50,1,50],...props}));
+    const maskShape = new Shape(props.points);
     return (
-      <mesh castShadow
-       receiveShadow ref={ref} {...props} >
-        <boxBufferGeometry args={[50, 1, 50]}></boxBufferGeometry>
-        <meshPhysicalMaterial transparent opacity={1} ></meshPhysicalMaterial>
-      </mesh>
- )
+        <mesh rotation={props.rotation}>
+            <shapeBufferGeometry attach="geometry" args={[maskShape]}  />
+            <meshPhysicalMaterial map={props.texture}
+                               color={props.color} side={THREE.DoubleSide}
+            />
+        </mesh>
+    )
 }

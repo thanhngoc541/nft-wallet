@@ -12,6 +12,7 @@ export default (props) => {
         if (wall.args[2] < wall.args[1] && wall.args[2] < wall.args[0]) return 2;
     };
     const type = getWallType(props);
+    console.log(`wall props = ${props}, wall type = ${type}`)
     if (type == 1)
         return (
             <mesh

@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import WallModel from '../../models/wall.js';
+import WallModel from '../../model-3d/wall.js';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 export default (props) => {
     let wall = new WallModel([0, 0, 0], [0, 0, 0], '#ffffff', null);

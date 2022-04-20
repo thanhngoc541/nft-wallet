@@ -396,6 +396,7 @@ export class Room extends EventDispatcher {
             }
         }
         this.floorRectangleSize = maxB.clone().sub(minB);
+        console.log('interior corners, ', this.interiorCorners)
     }
 
     updateArea() {

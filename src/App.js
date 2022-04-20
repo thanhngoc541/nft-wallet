@@ -8,7 +8,7 @@ import Dragable from './components/HelperComponents/Dragable';
 import Model from './components/HelperComponents/Model';
 import Wall from './components/Objects/Wall';
 import FloatingButtons from './components/UIComponents/FloatingButtons';
-import WallModel from './models/wall.js';
+import WallModel from './model-3d/wall.js';
 import BoundingBox from './components/HelperComponents/BoundingBox';
 import ObjectDetails from './components/UIComponents/ObjectDetails';
 import * as default_json_room from './default_room.json'
@@ -16,10 +16,13 @@ import {Bluesprint} from "./bluesprint";
 import {ConvertJson2DTo3D} from "./helpers/Convert";
 import Background from './components/Environments/Background';
 import * as THREE from "three";
+import Floor from "./components/Objects/Floor";
 
 function App() {
     let default_room = JSON.stringify(default_json_room)
-    const [walls, setWalls] = useState(ConvertJson2DTo3D(JSON.parse(default_room).floorplan));
+    let room = ConvertJson2DTo3D(JSON.parse(default_room).floorplan)
+    const [walls, setWalls] = useState(room.walls);
+    const  [floor, setFloor] = useState(room.floor)
     /** Them rotation */
     // const [walls, setWalls] = useState([
     //     new WallModel([16.39, 0.2, 10.39], [0, -0.1, 0], null, '/wood.jpg'),
@@ -63,7 +66,7 @@ function App() {
                     }
                 }
             },
-            textureDir: "models/textures/", //Note: có vẻ vô lý
+            textureDir: "model-3d/textures/", //Note: có vẻ vô lý
             widget: false,
             resize: true,
         }
@@ -302,6 +305,18 @@ function App() {
         </Suspense>
     );
 
+    const getFloor = () => (
+        <Suspense fallback={null}>
+            <Floor
+                texture={floor.texture}
+                color={floor.color}
+                rotation={floor.rotation}
+                points={floor.points}
+                position={floor.position}
+            />
+        </Suspense>
+    )
+
     const clearFocused = () => setFocusedObject(null);
 
     const deleteFocused = () => {
@@ -313,8 +328,9 @@ function App() {
 
     const [is3d, setIs3d] = useState(false);
     const handleTransform = () => {
-        setWalls(ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan()))
-        console.log('set walls ', ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan()))
+        let room = ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan())
+        setWalls(room.walls)
+        setFloor(room.floor)
         setIs3d(!is3d);
     }
     return (
@@ -365,6 +381,7 @@ function App() {
                             <Box position={[1.2, 0.5, -2]} />
                         </Suspense>
                     </Dragable> */}
+                        {getFloor()}
                         {getWalls()}
                         {getObjects()}
                     </Physics>
