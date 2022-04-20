@@ -19,7 +19,13 @@ const Model = (props) => {
     useFrame((scene, delta) => {
         mixer?.update(delta);
         ref.current.scale.copy(new THREE.Vector3(props.scale[0], props.scale[1], props.scale[2]));
-        ref.current.rotation.copy(new THREE.Euler(props.rotation[0], props.rotation[1], props.rotation[2]));
+        ref.current.rotation.copy(
+            new THREE.Euler(
+                props.rotation[0] + props.bufferRotation[0],
+                props.rotation[1] + props.bufferRotation[1],
+                props.rotation[2] + props.bufferRotation[2],
+            ),
+        );
     });
     model.scene.traverse((child) => {
         if (child.isMesh) {

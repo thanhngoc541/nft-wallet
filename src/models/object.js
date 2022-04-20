@@ -25,10 +25,12 @@ export default class ObjectModel {
         this.lockZ = lockZ;
         this.rotation = rotation;
         this.calcRotation = [...rotation];
+        this.bufferRotation = [0, 0, 0];
         this.customScale = 1;
         this.customRotationY = 0;
         this.calcPosition = [...position];
         if (lockY) this.calcPosition[1] = (this.dims[1] * this.customScale) / 2;
+        this.attachedWall = null;
         this.createTime = new Date();
     }
 }

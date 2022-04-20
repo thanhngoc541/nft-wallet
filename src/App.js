@@ -14,6 +14,7 @@ import ObjectDetails from './components/UIComponents/ObjectDetails';
 import * as default_json_room from './default_room.json'
 import {Bluesprint} from "./bluesprint";
 import {ConvertJson2DTo3D} from "./helpers/Convert";
+import Background from './components/Environments/Background';
 
 function App() {
     let default_room = JSON.stringify(default_json_room)
@@ -137,13 +138,14 @@ function App() {
         currentObject = model;
     };
 
-    let placeObject = (position, args) => {
+    let placeObject = (position, args, wall = null) => {
+        // console.log(wall);
         if (currentObject != null) {
             currentObject.position = position;
             if (args[1] < args[0] && args[1] < args[2]) currentObject.position[1] += currentObject.dims[1] / 2;
             if (args[0] < args[1] && args[0] < args[2]) {
                 if (currentObject.dims[2] < currentObject.dims[0] && currentObject.dims[2] < currentObject.dims[1]) {
-                    currentObject.rotation[1] += Math.PI / 2;
+                    currentObject.bufferRotation[1] += Math.PI / 2;
                     currentObject.dims[0] += currentObject.dims[2];
                     currentObject.dims[2] = currentObject.dims[0] - currentObject.dims[2];
                     currentObject.dims[0] = currentObject.dims[0] - currentObject.dims[2];
@@ -157,7 +159,7 @@ function App() {
             }
             if (args[2] < args[0] && args[2] < args[1]) {
                 if (currentObject.dims[0] < currentObject.dims[1] && currentObject.dims[0] < currentObject.dims[2]) {
-                    currentObject.rotation[1] -= Math.PI / 2;
+                    currentObject.bufferRotation[1] -= Math.PI / 2;
                     currentObject.dims[0] += currentObject.dims[2];
                     currentObject.dims[2] = currentObject.dims[0] - currentObject.dims[2];
                     currentObject.dims[0] = currentObject.dims[0] - currentObject.dims[2];
@@ -171,6 +173,9 @@ function App() {
             }
             currentObject.calcDims = [...currentObject.dims];
             currentObject.calcPosition = [...currentObject.position];
+            currentObject.calcRotation = [...currentObject.rotation];
+            currentObject.calcOffset = [...currentObject.offset];
+            currentObject.attachedWall = wall;
             setObjects([...objects, currentObject]);
             currentObject = null;
         }
@@ -226,6 +231,7 @@ function App() {
                                 }}
                                 key={object.createTime.toString()}
                                 rotation={object.calcRotation}
+                                bufferRotation={object.bufferRotation}
                                 scale={object.calcScale}
                                 path={object.url}
                             ></Model>
@@ -238,6 +244,7 @@ function App() {
                         lockX={object.lockX}
                         lockY={object.lockY}
                         lockZ={object.lockZ}
+                        attachedWall={object.attachedWall}
                         transformGroup
                         key={'dragable' + object.createTime.toString()}
                     >
@@ -257,6 +264,7 @@ function App() {
                                 }}
                                 key={object.createTime.toString()}
                                 rotation={object.calcRotation}
+                                bufferRotation={object.bufferRotation}
                                 scale={object.calcScale}
                                 path={object.url}
                             ></Model>
@@ -275,8 +283,9 @@ function App() {
                     key={'wall' + index.toString()}
                     texture={wall.texture}
                     color={wall.color}
+                    rotation={wall.rotation}
                     args={wall.args}
-                    position={wall.pos}
+                    position={wall.position}
                 ></Wall>
             ))}
         </Suspense>
