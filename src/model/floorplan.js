@@ -529,9 +529,6 @@ export class Floorplan extends EventDispatcher {
     }
 
     // Save the floorplan as a json object file
-    /**
-     * @return {void}
-     */
     saveFloorplan() {
         var floorplans = { version: Version.getTechnicalVersion(), corners: {}, walls: [], rooms: {}, wallTextures: [], floorTextures: {}, newFloorTextures: {}, carbonSheet: {} };
         var cornerIds = [];
@@ -561,19 +558,9 @@ export class Floorplan extends EventDispatcher {
         });
 
         cornerIds.forEach((corner) => {
-            floorplans.corners[corner.id] = { 'x': Dimensioning.cmToMeasureRaw(corner.x), 'y': Dimensioning.cmToMeasureRaw(corner.y), 'elevation': Dimensioning.cmToMeasureRaw(corner.elevation) };
+            floorplans.corners[corner.id] = { 'x': Dimensioning.cmToMeasureRaw(corner.x) / 100, 'y': Dimensioning.cmToMeasureRaw(corner.y) / 100, 'elevation': Dimensioning.cmToMeasureRaw(corner.elevation) };
         });
 
-        // this.rooms.forEach((room)=>{
-        // var metaroom = {};
-        // var cornerids = [];
-        // room.corners.forEach((corner)=>{
-        // cornerids.push(corner.id);
-        // });
-        // var ids = cornerids.join(',');
-        // metaroom['name'] = room.name;
-        // floorplans.rooms[ids] = metaroom;
-        // });
         floorplans.rooms = this.metaroomsdata;
 
         if (this.carbonSheet) {
@@ -586,26 +573,6 @@ export class Floorplan extends EventDispatcher {
             floorplans.carbonSheet['width'] = this.carbonSheet.width;
             floorplans.carbonSheet['height'] = this.carbonSheet.height;
         }
-
-        // if(this.__boundary){
-        //     if(this.__boundary.isValid){
-        //         let boundaryData = {};
-        //         let measurePoints = [];
-        //         for (let i =0;i < this.__boundary.points.length;i++){
-        //             let cmPoint = this.__boundary.points[i];
-        //             let measurePoint = {
-        //                 x: Dimensioning.cmToMeasureRaw(cmPoint.x),
-        //                 y: Dimensioning.cmToMeasureRaw(cmPoint.y),
-        //                 elevation: Dimensioning.cmToMeasureRaw(cmPoint.elevation),
-        //             };
-        //             measurePoints.push(measurePoint);
-        //         }
-        //
-        //         boundaryData.points = measurePoints;
-        //         boundaryData.style = this.__boundary.style;
-        //         floorplans.boundary = boundaryData;
-        //     }
-        // }
 
         floorplans.units = Configuration.getValue(configDimUnit, 1);
 

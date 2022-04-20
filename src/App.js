@@ -15,15 +15,25 @@ import * as default_json_room from './default_room.json'
 import {Bluesprint} from "./bluesprint";
 import {ConvertJson2DTo3D} from "./helpers/Convert";
 import Background from './components/Environments/Background';
+import * as THREE from "three";
 
 function App() {
     let default_room = JSON.stringify(default_json_room)
     const [walls, setWalls] = useState(ConvertJson2DTo3D(JSON.parse(default_room).floorplan));
+    /** Them rotation */
+    // const [walls, setWalls] = useState([
+    //     new WallModel([16.39, 0.2, 10.39], [0, -0.1, 0], null, '/wood.jpg'),
+    //     new WallModel([0.2, 6, 10.2], [-8.1, 2.8, -0.1], 'white', null, [0, 1, 0]),
+    //     new WallModel([0.2, 6, 10.2], [8.1, 2.8, -0.1], 'white', null, [0, 0, 0]),
+    //     new WallModel([16, 6, 0.2], [0, 2.8, -5.1], 'white', null, [0, 0, 0]),
+    //     new WallModel([16.4, 6, 0.2], [0, 2.8, 5.1], 'white', null, [0, 0, 0]),
+    // ]);
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
     const [mode, setMode] = useState('');
-
+    const [blueprint, serBlueprint] = useState({})
     let currentObject = null;
+
 
     //2D viewer
     useEffect(() => {
@@ -59,6 +69,7 @@ function App() {
         }
         let blueprint = new Bluesprint(options)
         blueprint.model.loadSerialized(default_room);
+        serBlueprint(blueprint)
     }, []);
 
     const saveFile = async (blob) => {
@@ -302,6 +313,8 @@ function App() {
 
     const [is3d, setIs3d] = useState(false);
     const handleTransform = () => {
+        setWalls(ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan()))
+        console.log('set walls ', ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan()))
         setIs3d(!is3d);
     }
     return (
@@ -340,6 +353,7 @@ function App() {
                     <Background></Background>
                 </Suspense> */}
                     <Lights></Lights>
+                    <primitive object={new THREE.AxesHelper(10)} />
                     {/* <gridHelper args={[20, 20]} /> */}
                     <Physics>
                         {/* <Car></Car> */}
