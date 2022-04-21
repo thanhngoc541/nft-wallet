@@ -1,0 +1,1 @@
+This folder for implementing an interactive tool for creation of floorplans.

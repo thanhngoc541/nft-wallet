@@ -34,6 +34,13 @@ export default function FloatingActionButtons(props) {
     };
     return (
         <Box style={{ position: 'absolute', bottom: '10px', right: '10px' }} sx={{ '& > :not(style)': { m: 1 } }}>
+            <Fab
+                color="primary"
+                aria-label="transform"
+                onClick={props.handleTransform}
+            >
+                T
+            </Fab>
             <SwipeableDrawer
                 anchor={'right'}
                 open={openAddModel}
