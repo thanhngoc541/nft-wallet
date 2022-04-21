@@ -17,7 +17,7 @@ import Background from './components/Environments/Background';
 function App() {
     const [walls, setWalls] = useState([
         new WallModel([16.39, 0.2, 10.39], [0, -0.1, 0], null, '/wood.jpg'),
-        new WallModel([0.2, 6, 10.2], [-8.1, 2.8, -0.1], 'white', null, [0, 1, 0]),
+        new WallModel([0.2, 6, 10.2], [-8.1, 2.8, -0.1], 'white', null, [0, 0, 0]),
         new WallModel([0.2, 6, 10.2], [8.1, 2.8, -0.1], 'white', null, [0, 0, 0]),
         new WallModel([16, 6, 0.2], [0, 2.8, -5.1], 'white', null, [0, 0, 0]),
         new WallModel([16.4, 6, 0.2], [0, 2.8, 5.1], 'white', null, [0, 0, 0]),
@@ -112,7 +112,7 @@ function App() {
     };
 
     let placeObject = (position, args, wall = null) => {
-        // console.log(wall);
+        console.log(wall);
         if (currentObject != null) {
             currentObject.position = position;
             if (args[1] < args[0] && args[1] < args[2]) currentObject.position[1] += currentObject.dims[1] / 2;
@@ -128,7 +128,8 @@ function App() {
                     currentObject.lockX = true;
                     currentObject.lockZ = false;
                 }
-                currentObject.position[0] += currentObject.dims[0] / 2;
+
+                if (currentObject.type != 'window') currentObject.position[0] += currentObject.dims[0] / 2;
             }
             if (args[2] < args[0] && args[2] < args[1]) {
                 if (currentObject.dims[0] < currentObject.dims[1] && currentObject.dims[0] < currentObject.dims[2]) {
@@ -142,7 +143,7 @@ function App() {
                     currentObject.lockX = false;
                     currentObject.lockZ = true;
                 }
-                currentObject.position[2] += currentObject.dims[2] / 2;
+                if (currentObject.type != 'window') currentObject.position[2] += currentObject.dims[2] / 2;
             }
             currentObject.calcDims = [...currentObject.dims];
             currentObject.calcPosition = [...currentObject.position];
@@ -192,6 +193,7 @@ function App() {
                             key={'boundingBox' + object.createTime.toString()}
                             dims={object.calcDims}
                             mass={object.mass}
+                            attachedWall={object.attachedWall}
                             isEditting={focusedObject != null}
                             offset={object.calcOffset}
                             position={object.calcPosition}
@@ -229,6 +231,7 @@ function App() {
                             offset={object.calcOffset}
                             position={object.calcPosition}
                             rotation={object.calcRotation}
+                            attachedWall={object.attachedWall}
                         >
                             <Model
                                 setFocusedObject={() => {
@@ -251,15 +254,7 @@ function App() {
     const getWalls = () => (
         <Suspense fallback={null}>
             {walls.map((wall, index) => (
-                <Wall
-                    placeObject={placeObject}
-                    key={'wall' + index.toString()}
-                    texture={wall.texture}
-                    color={wall.color}
-                    rotation={wall.rotation}
-                    args={wall.args}
-                    position={wall.position}
-                ></Wall>
+                <Wall placeObject={placeObject} key={'wall' + index.toString()} wall={wall}></Wall>
             ))}
         </Suspense>
     );

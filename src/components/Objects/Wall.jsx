@@ -3,124 +3,88 @@ import { useBox } from '@react-three/cannon';
 import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 export default (props) => {
-    const [ref, api] = useBox(() => ({ args: props.args, position: props.position, rotation: props.rotation }));
-    let texture = props.texture != null ? useLoader(THREE.TextureLoader, process.env.PUBLIC_URL + props.texture) : null;
+    const wall = props.wall;
+    const [ref, api] = useBox(() => ({ args: wall.args, position: wall.position, rotation: wall.rotation }));
+    let texture = wall.texture != null ? useLoader(THREE.TextureLoader, process.env.PUBLIC_URL + wall.texture) : null;
     const getWallType = (wall) => {
         if (!wall) return 3;
         if (wall.args[0] < wall.args[1] && wall.args[0] < wall.args[2]) return 0;
         if (wall.args[1] < wall.args[2] && wall.args[1] < wall.args[0]) return 1;
         if (wall.args[2] < wall.args[1] && wall.args[2] < wall.args[0]) return 2;
     };
-    const type = getWallType(props);
+    var onBeforeRender = function (renderer, scene, camera, geometry, material, group) {
+        // this is one way. adapt to your use case.
+
+        var v = new THREE.Vector3();
+
+        if (
+            v
+                .subVectors(camera.position, new THREE.Vector3(wall.position[0], wall.position[1], wall.position[2]))
+                .dot(this.userData) < 0
+        ) {
+            wall.isHiding = true;
+            geometry.setDrawRange(0, 0);
+        } else {
+            wall.isHiding = false;
+        }
+    };
+
+    var onAfterRender = function (renderer, scene, camera, geometry, material, group) {
+        geometry.setDrawRange(0, Infinity);
+    };
+    const type = getWallType(wall);
     if (type == 1)
         return (
             <mesh
                 // castShadow
                 onPointerDown={(e) => {
-                    props.placeObject([e.point.x, e.point.y, e.point.z], props.args, props);
+                    props.placeObject([e.point.x, e.point.y, e.point.z], wall.args, wall);
                 }}
-                rotation={props.rotation}
+                rotation={wall.rotation}
                 receiveShadow
                 ref={ref}
-                args={props.args}
-                position={props.position}
+                args={wall.args}
+                position={wall.position}
             >
-                <boxBufferGeometry args={props.args}></boxBufferGeometry>
+                <boxBufferGeometry args={wall.args}></boxBufferGeometry>
                 <meshPhysicalMaterial
                     map={texture}
-                    color={props.color}
+                    color={wall.color}
                     // transparent
                     // side={THREE.FrontSide}
                     // opacity={0}
                 ></meshPhysicalMaterial>
             </mesh>
         );
-    if (getWallType(props) != 2)
-        return (
-            <group>
-                <mesh
-                    // castShadow
-                    onPointerDown={(e) => {
-                        console.log('front');
-                        // props.placeObject([e.point.x, e.point.y, e.point.z], props.args, props);
-                    }}
-                    // receiveShadow
-                    ref={ref}
-                    args={props.args}
-                    position={props.position}
-                    rotation={props.rotation}
-                >
-                    <boxBufferGeometry args={props.args}></boxBufferGeometry>
-                    <meshPhysicalMaterial
-                        map={texture}
-                        color={props.color}
-                        // transparent={false}
-                        side={THREE.BackSide}
-                        transparent
-                        opacity={1}
-                    ></meshPhysicalMaterial>
-                </mesh>
-                <mesh
-                    // castShadow
-                    rotation={props.rotation}
-                    onPointerDown={(e) => {
-                        console.log(e);
-                        console.log(e.intersections);
-                        console.log(ref.current);
-                        console.log('back');
-                        props.placeObject([e.point.x, e.point.y, e.point.z], props.args, props);
-                    }}
-                    receiveShadow
-                    // ref={ref}
-                    args={props.args}
-                    position={props.position}
-                >
-                    <boxBufferGeometry args={props.args}></boxBufferGeometry>
-                    <meshPhysicalMaterial
-                        // map={texture}
-                        color={props.color}
-                        transparent
-                        side={THREE.FrontSide}
-                        opacity={0}
-                    ></meshPhysicalMaterial>
-                </mesh>
-            </group>
-        );
     return (
-        <group>
-            <mesh
-                // castShadow
-                // onPointerDown={(e) => props.placeObject([e.point.x, e.point.y, e.point.z], props.args, props)}
-                // receiveShadow
-                // ref={ref}
-                rotation={props.rotation}
-                args={props.args}
-                position={props.position}
-            >
-                <boxBufferGeometry args={props.args}></boxBufferGeometry>
-                <meshPhysicalMaterial
-                    map={texture}
-                    color={props.color}
-                    transparent
-                    side={THREE.BackSide}
-                    opacity={1}
-                ></meshPhysicalMaterial>
-            </mesh>
-            <mesh
-                onPointerDown={(e) => {
-                    console.log(e.intersections);
-                    console.log(e.object);
-                    props.placeObject([e.point.x, e.point.y, e.point.z], props.args, props);
-                }}
-                receiveShadow
-                rotation={props.rotation}
-                ref={ref}
-                args={props.args}
-                position={props.position}
-            >
-                <boxBufferGeometry args={props.args}></boxBufferGeometry>
-                <meshPhysicalMaterial side={THREE.FrontSide} transparent opacity={0}></meshPhysicalMaterial>
-            </mesh>
-        </group>
+        <mesh
+            // castShadow
+            onPointerDown={(e) => {
+                if (!wall.isHiding) props.placeObject([e.point.x, e.point.y, e.point.z], wall.args, wall);
+            }}
+            receiveShadow
+            // ref={ref}
+            userData={
+                new THREE.Vector3(
+                    type != 0 ? 0 : wall.position[0] > 0 ? -1 : 1,
+                    0,
+                    type != 2 ? 0 : wall.position[2] > 0 ? -1 : 1,
+                )
+            }
+            rotation={wall.rotation}
+            args={wall.args}
+            position={wall.position}
+            onBeforeRender={onBeforeRender}
+            onAfterRender={onAfterRender}
+        >
+            <boxBufferGeometry args={wall.args}></boxBufferGeometry>
+            <meshPhysicalMaterial
+                map={texture}
+                color={wall.color}
+                // transparent
+                // side={THREE.BackSide}
+                // opacity={1}
+            ></meshPhysicalMaterial>
+        </mesh>
     );
 };

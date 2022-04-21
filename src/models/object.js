@@ -10,6 +10,7 @@ export default class ObjectModel {
         lockY = true,
         lockZ = false,
         rotation = [0, 0, 0],
+        type = 'object',
     ) {
         this.url = url;
         this.position = position;
@@ -31,6 +32,7 @@ export default class ObjectModel {
         this.calcPosition = [...position];
         if (lockY) this.calcPosition[1] = (this.dims[1] * this.customScale) / 2;
         this.attachedWall = null;
+        this.type = type;
         this.createTime = new Date();
     }
 }
