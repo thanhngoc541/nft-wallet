@@ -11,6 +11,7 @@ export default class ObjectModel {
         lockZ = false,
         rotation = [0, 0, 0],
         type = 'object',
+        texture = null
     ) {
         this.url = url;
         this.position = position;
@@ -34,5 +35,6 @@ export default class ObjectModel {
         this.attachedWall = null;
         this.type = type;
         this.createTime = new Date();
+        this.texture = texture
     }
 }

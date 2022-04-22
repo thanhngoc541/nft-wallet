@@ -32,8 +32,8 @@ export default ({
     return (
         <group ref={ref} api={api}>
             <mesh scale={dims} visible={visible} rotation={rotation}>
-                <boxBufferGeometry></boxBufferGeometry>
-                <meshPhysicalMaterial wireframe></meshPhysicalMaterial>
+                <boxBufferGeometry/>
+                <meshPhysicalMaterial wireframe/>
             </mesh>
             <group position={offset}>{children}</group>
         </group>

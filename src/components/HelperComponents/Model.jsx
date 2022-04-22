@@ -1,11 +1,30 @@
-import { useFrame, useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {useFrame, useLoader} from '@react-three/fiber';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as THREE from 'three';
-import { useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 const Model = (props) => {
     const model = useLoader(GLTFLoader, process.env.PUBLIC_URL + props.path);
     const ref = useRef();
+    const [texture, setTexture] = useState(null)
+
+    // handle texture of object
+    useEffect(() => {
+        if (props.texture && props.texture.includes("video")) {
+            console.log("DEBUG: create video texture")
+            const vid = document.createElement("video");
+            vid.src = props.texture;
+            vid.crossOrigin = "Anonymous";
+            vid.loop = true;
+            vid.muted = true;
+            vid.play().then(r => {
+                console.log('video is running')
+            });
+            let texture = new THREE.VideoTexture(vid);
+            texture.encoding = THREE.sRGBEncoding;
+            setTexture(texture);
+        }
+    }, []);
 
     let mixer;
     if (model.animations.length > 0) {
@@ -31,9 +50,19 @@ const Model = (props) => {
         if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
-            child.material.side = THREE.FrontSide;
+            if (texture) {
+                console.log('DEBUG: add material into object')
+                // child.geometry.setAttribute('args', [3.2, 1.9])
+                console.log('DEBUG: attribute ', child.geometry.getAttribute('position'))
+                child.material = new THREE.MeshStandardMaterial({
+                    map: texture,
+                    emissiveMap: texture
+                });
+            }
+            // child.material.side = THREE.DoubleSide;
         }
     });
+
     return (
         <primitive
             ref={ref}
@@ -44,7 +73,7 @@ const Model = (props) => {
             position={props.position}
             object={model.scene.clone()}
             scale={props.scale}
-        ></primitive>
+        />
     );
 };
 export default Model;

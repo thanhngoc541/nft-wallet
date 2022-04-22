@@ -72,10 +72,10 @@ function App() {
     };
 
     const exportData = () => {
-        const data = { walls, objects };
+        const data = {walls, objects};
         const jsonData = JSON.stringify(data);
         console.log(jsonData);
-        const blob = new Blob([jsonData], { type: 'application/json' });
+        const blob = new Blob([jsonData], {type: 'application/json'});
         saveFile(blob);
     };
 
@@ -214,7 +214,7 @@ function App() {
     const getObjects = () => (
         <Suspense fallback={null}>
             {objects.map((object, index) => {
-                if (mode == 'lock')
+                if (mode === 'lock')
                     return (
                         <BoundingBox
                             key={'boundingBox' + object.createTime.toString()}
@@ -236,7 +236,7 @@ function App() {
                                 bufferRotation={object.bufferRotation}
                                 scale={object.calcScale}
                                 path={object.url}
-                            ></Model>
+                            />
                         </BoundingBox>
                     );
                 return (
@@ -270,7 +270,8 @@ function App() {
                                 bufferRotation={object.bufferRotation}
                                 scale={object.calcScale}
                                 path={object.url}
-                            ></Model>
+                                texture={object.texture}
+                            />
                         </BoundingBox>
                     </Dragable>
                 );
@@ -281,7 +282,7 @@ function App() {
     const getWalls = () => (
         <Suspense fallback={null}>
             {walls.map((wall, index) => (
-                <Wall placeObject={placeObject} key={'wall' + index.toString()} wall={wall}></Wall>
+                <Wall placeObject={placeObject} key={'wall' + index.toString()} wall={wall}/>
             ))}
         </Suspense>
     );
@@ -289,7 +290,7 @@ function App() {
     const clearFocused = () => setFocusedObject(null);
 
     const deleteFocused = () => {
-        setObjects(objects.filter((obj) => obj != focusedObject));
+        setObjects(objects.filter((obj) => obj !== focusedObject));
         setFocusedObject(null);
     };
 
@@ -309,9 +310,7 @@ function App() {
                 </button>
                 <div id="bp3djs-viewer2d"/>
             </div>
-            <div style={{ height: '100vh', width: '100vw' }} hidden={!is3d}>
-                {/* <ColorPicker></ColorPicker> */}
-                {/* <CameraButton></CameraButton> */}
+            <div style={{height: '100vh', width: '100vw'}} hidden={!is3d}>
                 <FloatingButtons
                     importData={importData}
                     exportData={exportData}
@@ -320,7 +319,7 @@ function App() {
                     addModel={addModel}
                     createWallHandle={createWallHandle}
                     handleTransform={handleTransform}
-                ></FloatingButtons>
+                />
                 <ObjectDetails
                     rotateObject={(e) => rotateObject(focusedObject, e)}
                     scaleObject={(e) => scaleObject(focusedObject, e)}
@@ -328,26 +327,11 @@ function App() {
                     object={focusedObject}
                     deleteFocused={deleteFocused}
                     clearFocused={clearFocused}
-                ></ObjectDetails>
-                <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
-                    {/* <CameraControls></CameraControls> */}
-                    <Orbit></Orbit>
-                    {/* <axesHelper args={[5]}></axesHelper> */}
-                    {/* <Suspense fallback={null}>
-                    <Background></Background>
-                </Suspense> */}
-                    <Lights></Lights>
-                    {/* <gridHelper args={[20, 20]} /> */}
+                />
+                <Canvas shadows style={{background: 'black'}} camera={{position: [7, 7, 7]}}>
+                    <Orbit/>
+                    <Lights/>
                     <Physics>
-                        {/* <Car></Car> */}
-                        {/* <Dragable>
-                        <Suspense fallback={null}>
-                            <Box position={[-1.2, 0.5, -2]} />
-                        </Suspense>
-                        <Suspense fallback={null}>
-                            <Box position={[1.2, 0.5, -2]} />
-                        </Suspense>
-                    </Dragable> */}
                         {getWalls()}
                         {getObjects()}
                     </Physics>

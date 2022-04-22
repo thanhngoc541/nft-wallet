@@ -2,11 +2,10 @@ import React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
 import AddIcon from '@mui/icons-material/Add';
 import ObjectModel from '../../models/object';
+
 export default function ModelList(props) {
     let itemModel = [];
     for (let i = 1; i <= props.number; i++) {
@@ -18,9 +17,10 @@ export default function ModelList(props) {
         });
     }
     const handleAdd = async (item) => {
-        var data = await fetch(process.env.PUBLIC_URL + `${item.root}/model.json`)
+        const data = await fetch(process.env.PUBLIC_URL + `${item.root}/model.json`)
             .then((response) => response.json())
             .catch((e) => console.error(e));
+        console.log(process.env.PUBLIC_URL + `${item.root}/model.json`)
         console.log(data);
         props.addModel(
             new ObjectModel(
@@ -35,6 +35,8 @@ export default function ModelList(props) {
                 data?.lockZ,
                 data?.rotation,
                 data?.type,
+                // Call API to get url of texture (future)
+                `${item.root}/texture/${data?.texture}`
             ),
         );
         props.close();
