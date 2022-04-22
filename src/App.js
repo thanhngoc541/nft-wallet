@@ -8,19 +8,18 @@ import Dragable from './components/HelperComponents/Dragable';
 import Model from './components/HelperComponents/Model';
 import Wall from './components/Objects/Wall';
 import FloatingButtons from './components/UIComponents/FloatingButtons';
-import WallModel from './models/wall.js';
 import BoundingBox from './components/HelperComponents/BoundingBox';
 import ObjectDetails from './components/UIComponents/ObjectDetails';
 import * as default_json_room from './default_room.json'
 import {Bluesprint} from "./bluesprint";
 import {ConvertJson2DTo3D} from "./helpers/Convert";
-import Background from './components/Environments/Background';
 
 function App() {
     let default_room = JSON.stringify(default_json_room)
     const [walls, setWalls] = useState(ConvertJson2DTo3D(JSON.parse(default_room).floorplan));
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
+    const [blueprint, setBlueprint] = useState({})
     const [mode, setMode] = useState('');
 
     let currentObject = null;
@@ -59,6 +58,7 @@ function App() {
         }
         let blueprint = new Bluesprint(options)
         blueprint.model.loadSerialized(default_room);
+        setBlueprint(blueprint)
     }, []);
 
     const saveFile = async (blob) => {
@@ -297,6 +297,8 @@ function App() {
 
     const [is3d, setIs3d] = useState(false);
     const handleTransform = () => {
+        let walls = ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan())
+        setWalls(walls)
         setIs3d(!is3d);
     }
     return (

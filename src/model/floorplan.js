@@ -529,9 +529,6 @@ export class Floorplan extends EventDispatcher {
     }
 
     // Save the floorplan as a json object file
-    /**
-     * @return {void}
-     */
     saveFloorplan() {
         var floorplans = { version: Version.getTechnicalVersion(), corners: {}, walls: [], rooms: {}, wallTextures: [], floorTextures: {}, newFloorTextures: {}, carbonSheet: {} };
         var cornerIds = [];
@@ -561,7 +558,7 @@ export class Floorplan extends EventDispatcher {
         });
 
         cornerIds.forEach((corner) => {
-            floorplans.corners[corner.id] = { 'x': Dimensioning.cmToMeasureRaw(corner.x), 'y': Dimensioning.cmToMeasureRaw(corner.y), 'elevation': Dimensioning.cmToMeasureRaw(corner.elevation) };
+            floorplans.corners[corner.id] = { 'x': Dimensioning.cmToMeasureRaw(corner.x) / 100, 'y': Dimensioning.cmToMeasureRaw(corner.y) / 100, 'elevation': Dimensioning.cmToMeasureRaw(corner.elevation) / 100 };
         });
 
         // this.rooms.forEach((room)=>{
