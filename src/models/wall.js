@@ -5,6 +5,7 @@ export default class WallModel {
         this.color = color;
         this.texture = texture;
         this.rotation = rotation;
+        this.isHiding = false;
         this.createTime = new Date();
     }
 }

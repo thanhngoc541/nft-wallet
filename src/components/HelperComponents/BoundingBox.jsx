@@ -11,10 +11,16 @@ export default ({
     children,
     rotation = [0, 0, 0],
     isEditting = false,
+    attachedWall,
 }) => {
     console.log(dims);
     const [ref, api] = useBox(() => ({ mass: 0, args: dims, position: position }), null, []);
     useFrame((scene, delta) => {
+        if (!!attachedWall?.isHiding) {
+            ref.current.visible = false;
+        } else {
+            ref.current.visible = true;
+        }
         if (isEditting) {
             api.position.copy(new THREE.Vector3(position[0], position[1], position[2]));
             ref.current.position.copy(new THREE.Vector3(position[0], position[1], position[2]));
@@ -33,4 +39,3 @@ export default ({
         </group>
     );
 };
-    
