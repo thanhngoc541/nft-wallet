@@ -1,32 +1,32 @@
 import './App.css';
-import React, {Suspense, useEffect, useState} from 'react';
-import {Canvas} from '@react-three/fiber';
+import React, { Suspense, useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
 import Orbit from './components/HelperComponents/Orbit';
 import Lights from './components/Objects/Lights';
-import {Physics} from '@react-three/cannon';
+import { Physics } from '@react-three/cannon';
 import Dragable from './components/HelperComponents/Dragable';
 import Model from './components/HelperComponents/Model';
 import Wall from './components/Objects/Wall';
 import FloatingButtons from './components/UIComponents/FloatingButtons';
 import BoundingBox from './components/HelperComponents/BoundingBox';
 import ObjectDetails from './components/UIComponents/ObjectDetails';
-import * as default_json_room from './default_room.json'
-import {Bluesprint} from "./bluesprint";
-import {ConvertJson2DTo3D} from "./helpers/Convert";
+import * as default_json_room from './default_room.json';
+import { Bluesprint } from './bluesprint';
+import { ConvertJson2DTo3D } from './helpers/Convert';
 
 function App() {
-    let default_room = JSON.stringify(default_json_room)
+    let default_room = JSON.stringify(default_json_room);
     const [walls, setWalls] = useState(ConvertJson2DTo3D(JSON.parse(default_room).floorplan));
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
-    const [blueprint, setBlueprint] = useState({})
+    const [blueprint, setBlueprint] = useState({});
     const [mode, setMode] = useState('');
 
     let currentObject = null;
 
     //2D viewer
     useEffect(() => {
-        console.log('run use effect')
+        console.log('run use effect');
         let options = {
             viewer2d: {
                 id: 'bp3djs-viewer2d',
@@ -49,16 +49,16 @@ function App() {
                     },
                     pixiViewportOptions: {
                         passiveWheel: false,
-                    }
-                }
+                    },
+                },
             },
-            textureDir: "models/textures/", //Note: có vẻ vô lý
+            textureDir: 'models/textures/', //Note: có vẻ vô lý
             widget: false,
             resize: true,
-        }
-        let blueprint = new Bluesprint(options)
+        };
+        let blueprint = new Bluesprint(options);
         blueprint.model.loadSerialized(default_room);
-        setBlueprint(blueprint)
+        setBlueprint(blueprint);
     }, []);
 
     const saveFile = async (blob) => {
@@ -72,10 +72,10 @@ function App() {
     };
 
     const exportData = () => {
-        const data = {walls, objects};
+        const data = { walls, objects };
         const jsonData = JSON.stringify(data);
         console.log(jsonData);
-        const blob = new Blob([jsonData], {type: 'application/json'});
+        const blob = new Blob([jsonData], { type: 'application/json' });
         saveFile(blob);
     };
 
@@ -282,7 +282,7 @@ function App() {
     const getWalls = () => (
         <Suspense fallback={null}>
             {walls.map((wall, index) => (
-                <Wall placeObject={placeObject} key={'wall' + index.toString()} wall={wall}/>
+                <Wall placeObject={placeObject} key={'wall' + index.toString()} wall={wall} />
             ))}
         </Suspense>
     );
@@ -298,19 +298,19 @@ function App() {
 
     const [is3d, setIs3d] = useState(false);
     const handleTransform = () => {
-        let walls = ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan())
-        setWalls(walls)
+        let walls = ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan());
+        setWalls(walls);
         setIs3d(!is3d);
-    }
+    };
     return (
         <div>
             <div id="bp3d-js-app" hidden={is3d}>
                 <button onClick={handleTransform} id="transform">
                     Transform
                 </button>
-                <div id="bp3djs-viewer2d"/>
+                <div id="bp3djs-viewer2d" />
             </div>
-            <div style={{height: '100vh', width: '100vw'}} hidden={!is3d}>
+            <div style={{ height: '100vh', width: '100vw' }} hidden={!is3d}>
                 <FloatingButtons
                     importData={importData}
                     exportData={exportData}
@@ -328,9 +328,9 @@ function App() {
                     deleteFocused={deleteFocused}
                     clearFocused={clearFocused}
                 />
-                <Canvas shadows style={{background: 'black'}} camera={{position: [7, 7, 7]}}>
-                    <Orbit/>
-                    <Lights/>
+                <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
+                    <Orbit />
+                    <Lights />
                     <Physics>
                         {getWalls()}
                         {getObjects()}
