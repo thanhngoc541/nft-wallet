@@ -5,6 +5,7 @@ import {useEffect, useRef, useState} from 'react';
 
 const Model = (props) => {
     const model = useLoader(GLTFLoader, process.env.PUBLIC_URL + props.path);
+    console.log('DEBUG: GLTF model ', model);
     const ref = useRef();
     const [texture, setTexture] = useState(null)
 
@@ -47,17 +48,19 @@ const Model = (props) => {
         );
     });
     model.scene.traverse((child) => {
+        console.log("DEBUG: child of model.scene ", child)
         if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
             if (texture) {
-                console.log('DEBUG: add material into object')
-                // child.geometry.setAttribute('args', [3.2, 1.9])
-                console.log('DEBUG: attribute ', child.geometry.getAttribute('position'))
-                child.material = new THREE.MeshStandardMaterial({
-                    map: texture,
-                    emissiveMap: texture
-                });
+                // define the child of screen (GTFL model)
+                if (child.name === 'Screen') {
+                    console.log('DEBUG: add texture to screen ', child)
+                    child.material = new THREE.MeshStandardMaterial({
+                        map: texture,
+                        // emissiveMap: texture
+                    });
+                }
             }
             // child.material.side = THREE.DoubleSide;
         }

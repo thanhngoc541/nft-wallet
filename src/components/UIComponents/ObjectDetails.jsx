@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,7 +11,35 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
+import TextureList from "./TextureList";
 export default function ObjectDetails(props) {
+    const texture = [
+        {
+            name: 'img_1',
+            value: 'texture/img_1/texture.jpg'
+        },
+        {
+            name: 'img_2',
+            value: 'texture/img_2/texture.jpg'
+        },
+        {
+            name: 'vid_1',
+            value: 'texture/vid_1/texture.jpg'
+        },
+        {
+            name: 'vid_2',
+            value: 'texture/vid_2/texture.jpg'
+        },
+        {
+            name: 'vid_3',
+            value: 'texture/vid_3/texture.jpg'
+        },
+        {
+            name: 'vid_4',
+            value: 'texture/vid_4/texture.jpg'
+        },
+    ]
+
     return (
         <SwipeableDrawer
             hideBackdrop={true}
@@ -66,6 +94,15 @@ export default function ObjectDetails(props) {
                                 defaultValue={props.object?.customRotationY ?? 0}
                                 aria-label="rotation"
                                 valueLabelDisplay="auto"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography id="add_nft" gutterBottom>
+                                Add NFT
+                            </Typography>
+                            <TextureList
+                                texture={texture}
+                                handleAddTexture={props.handleAddTexture}
                             />
                         </Grid>
                     </Grid>
