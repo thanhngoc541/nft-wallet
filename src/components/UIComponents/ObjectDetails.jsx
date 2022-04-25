@@ -24,19 +24,19 @@ export default function ObjectDetails(props) {
         },
         {
             name: 'vid_1',
-            value: 'texture/vid_1/texture.jpg'
+            value: 'texture/vid_1/texture.mp4'
         },
         {
             name: 'vid_2',
-            value: 'texture/vid_2/texture.jpg'
+            value: 'texture/vid_2/texture.mp4'
         },
         {
             name: 'vid_3',
-            value: 'texture/vid_3/texture.jpg'
+            value: 'texture/vid_3/texture.mp4'
         },
         {
             name: 'vid_4',
-            value: 'texture/vid_4/texture.jpg'
+            value: 'texture/vid_4/texture.mp4'
         },
     ]
 

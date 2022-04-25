@@ -136,10 +136,9 @@ function App() {
 
     const handleAddTexture = (object, item) => {
         console.log("DEBUG: add texture into object ", object);
-        /**
-         * TODO:
-         * Xử lý add texture
-         * */
+        console.log('DEBUG: handle add texture ', item)
+        object.texture = item.value;
+        setObjects([...objects, object]);
     };
     let addModel = (model) => {
         currentObject = model;

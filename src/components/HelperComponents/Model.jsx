@@ -11,8 +11,8 @@ const Model = (props) => {
 
     // handle texture of object
     useEffect(() => {
-        if (props.texture && props.texture.includes("video")) {
-            console.log("DEBUG: create video texture")
+        if (props.texture && props.texture.includes("mp4")) {
+            console.log("DEBUG: create video texture ")
             const vid = document.createElement("video");
             vid.src = props.texture;
             vid.crossOrigin = "Anonymous";
@@ -23,6 +23,12 @@ const Model = (props) => {
             });
             let texture = new THREE.VideoTexture(vid);
             texture.encoding = THREE.sRGBEncoding;
+            setTexture(texture);
+        } else if (props.texture && (props.texture.includes('jpg') || props.texture.includes('png'))) {
+            let texture = new THREE.TextureLoader().load(props.texture);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set( 4, 4 );
             setTexture(texture);
         }
     }, []);
@@ -58,7 +64,7 @@ const Model = (props) => {
                     console.log('DEBUG: add texture to screen ', child)
                     child.material = new THREE.MeshStandardMaterial({
                         map: texture,
-                        // emissiveMap: texture
+                        emissiveMap: texture
                     });
                 }
             }

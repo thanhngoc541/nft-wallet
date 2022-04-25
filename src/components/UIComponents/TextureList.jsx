@@ -12,11 +12,11 @@ export default function TextureList(props) {
         itemModel.push({
             root: `texture/${props.texture[i].name}`,
             img: `texture/${props.texture[i].name}/thumbnail.png`,
+            value: props.texture[i].value,
             title: `${props.texture[i].name}`,
         });
     }
     const handleAdd = async (item) => {
-       console.log('DEBUG: handle add texture ', item)
         props.handleAddTexture(item);
     };
     return (
