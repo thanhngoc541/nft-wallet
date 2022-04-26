@@ -1,24 +1,24 @@
-import {useFrame, useLoader} from '@react-three/fiber';
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { useFrame, useLoader } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as THREE from 'three';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Model = (props) => {
     const model = useLoader(GLTFLoader, process.env.PUBLIC_URL + props.path);
     const ref = useRef();
-    const [texture, setTexture] = useState(null)
+    const [texture, setTexture] = useState(null);
 
     // handle texture of object
     useEffect(() => {
-        if (props.texture && props.texture.includes("video")) {
-            console.log("DEBUG: create video texture")
-            const vid = document.createElement("video");
+        if (props.texture && props.texture.includes('video')) {
+            console.log('DEBUG: create video texture');
+            const vid = document.createElement('video');
             vid.src = props.texture;
-            vid.crossOrigin = "Anonymous";
+            vid.crossOrigin = 'Anonymous';
             vid.loop = true;
             vid.muted = true;
-            vid.play().then(r => {
-                console.log('video is running')
+            vid.play().then((r) => {
+                console.log('video is running');
             });
             let texture = new THREE.VideoTexture(vid);
             texture.encoding = THREE.sRGBEncoding;
@@ -51,12 +51,12 @@ const Model = (props) => {
             child.castShadow = true;
             child.receiveShadow = true;
             if (texture) {
-                console.log('DEBUG: add material into object')
+                console.log('DEBUG: add material into object');
                 // child.geometry.setAttribute('args', [3.2, 1.9])
-                console.log('DEBUG: attribute ', child.geometry.getAttribute('position'))
+                console.log('DEBUG: attribute ', child.geometry.getAttribute('position'));
                 child.material = new THREE.MeshStandardMaterial({
                     map: texture,
-                    emissiveMap: texture
+                    emissiveMap: texture,
                 });
             }
             // child.material.side = THREE.DoubleSide;

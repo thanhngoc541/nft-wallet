@@ -1,13 +1,13 @@
-import {DragControls} from 'three/examples/jsm/controls/DragControls.js';
-import {extend, useThree} from '@react-three/fiber';
-import {useRef, useEffect, useState} from 'react';
-import {Vector3} from 'three';
+import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
+import { extend, useThree } from '@react-three/fiber';
+import { useRef, useEffect, useState } from 'react';
+import { Vector3 } from 'three';
 
-extend({DragControls});
+extend({ DragControls });
 const Dragable = (props) => {
     const groupRef = useRef();
     const controlRef = useRef();
-    const {gl, camera, scene} = useThree();
+    const { gl, camera, scene } = useThree();
     const [children, setChildren] = useState([]);
     let defaultPos = null;
     let lastPos = null;
@@ -20,11 +20,11 @@ const Dragable = (props) => {
     };
 
     const getWallLimit = (wall, index) => {
-        return {min: wall.position[index] - wall.args[index] / 2, max: wall.position[index] + wall.args[index] / 2};
+        return { min: wall.position[index] - wall.args[index] / 2, max: wall.position[index] + wall.args[index] / 2 };
     };
 
     const checkWallLimit = (wall, index, position, index2, dims) => {
-        const {min, max} = getWallLimit(wall, index);
+        const { min, max } = getWallLimit(wall, index);
         if (position[index2] - dims[index2] / 2 < min || position[index2] + dims[index2] / 2 > max) return 1;
         return 0;
     };

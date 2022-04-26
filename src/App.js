@@ -296,7 +296,7 @@ function App() {
 
     console.log('APP RENDERING.......');
 
-    const [is3d, setIs3d] = useState(false);
+    const [is3d, setIs3d] = useState(true);
     const handleTransform = () => {
         let walls = ConvertJson2DTo3D(blueprint.model.floorplan.saveFloorplan());
         setWalls(walls);
