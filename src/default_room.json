@@ -1,107 +1,106 @@
 {
-  "floorplan": {
-    "version": "2.0.1a",
-    "boundary": {
-      "points": [
-        {
-          "x": -80.0,
-          "y": -80.0,
-          "elevation": 5.0
+    "floorplan": {
+        "version": "2.0.1a",
+        "boundary": {
+            "points": [
+                {
+                    "x": -80.0,
+                    "y": -80.0,
+                    "elevation": 5.0
+                },
+                {
+                    "x": 80.0,
+                    "y": -80.0,
+                    "elevation": 5.0
+                },
+                {
+                    "x": 80.0,
+                    "y": 80.0,
+                    "elevation": 5.0
+                },
+                {
+                    "x": -80.0,
+                    "y": 80.0,
+                    "elevation": 5.0
+                }
+            ],
+            "style": {
+                "color": "#00FF00",
+                "type": "texture",
+                "colormap": "textures/Ground/GrassTextureDeviantArt.jpg",
+                "repeat": 3000
+            }
         },
-        {
-          "x": 80.0,
-          "y": -80.0,
-          "elevation": 5.0
+        "corners": {
+            "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2": {
+                "x": 0,
+                "y": 0,
+                "elevation": 5
+            },
+            "f90da5e3-9e0e-eba7-173d-eb0b071e838e": {
+                "x": 0,
+                "y": 6,
+                "elevation": 5
+            },
+            "da026c08-d76a-a944-8e7b-096b752da9ed": {
+                "x": 8,
+                "y": 6,
+                "elevation": 5
+            },
+            "4e3d65cb-54c0-0681-28bf-bddcc7bdb571": {
+                "x": 8,
+                "y": 0,
+                "elevation": 5
+            }
         },
-        {
-          "x": 80.0,
-          "y": 80.0,
-          "elevation": 5.0
+        "walls": [
+            {
+                "corner1": "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2",
+                "corner2": "f90da5e3-9e0e-eba7-173d-eb0b071e838e",
+                "wallType": "STRAIGHT",
+                "thickness": 0.2
+            },
+            {
+                "corner1": "f90da5e3-9e0e-eba7-173d-eb0b071e838e",
+                "corner2": "da026c08-d76a-a944-8e7b-096b752da9ed",
+                "wallType": "STRAIGHT",
+                "thickness": 0.2
+            },
+            {
+                "corner1": "da026c08-d76a-a944-8e7b-096b752da9ed",
+                "corner2": "4e3d65cb-54c0-0681-28bf-bddcc7bdb571",
+                "wallType": "STRAIGHT",
+                "thickness": 0.2
+            },
+            {
+                "corner1": "4e3d65cb-54c0-0681-28bf-bddcc7bdb571",
+                "corner2": "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2",
+                "wallType": "STRAIGHT",
+                "thickness": 0.2
+            }
+        ],
+        "rooms": {
+            "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2,4e3d65cb-54c0-0681-28bf-bddcc7bdb571,da026c08-d76a-a944-8e7b-096b752da9ed,f90da5e3-9e0e-eba7-173d-eb0b071e838e": {
+                "name": "A Room"
+            }
         },
-        {
-          "x": -80.0,
-          "y": 80.0,
-          "elevation": 5.0
-        }
-      ],
-      "style": {
-        "color": "#00FF00",
-        "type": "texture",
-        "colormap": "textures/Ground/GrassTextureDeviantArt.jpg",
-        "repeat": 3000
-      }
+        "wallTextures": [],
+        "floorTextures": {},
+        "newFloorTextures": {
+            "4e3d65cb-54c0-0681-28bf-bddcc7bdb571,71d4f128-ae80-3d58-9bd2-711c6ce6cdf2,da026c08-d76a-a944-8e7b-096b752da9ed,f90da5e3-9e0e-eba7-173d-eb0b071e838e": {
+                "repeat": 100,
+                "roughnessmap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_roughness.jpg",
+                "ambientmap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_ambientOcclusion.jpg",
+                "normalmap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_normal.jpg",
+                "colormap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_basecolor.jpg",
+                "color": "#FFFFFF",
+                "emissive": "#000000",
+                "reflective": 0.5,
+                "shininess": 0.5
+            }
+        },
+        "carbonSheet": {},
+        "units": "m"
     },
-    "corners": {
-      "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2": {
-        "x": 0,
-        "y": 0,
-        "elevation": 5
-      },
-      "f90da5e3-9e0e-eba7-173d-eb0b071e838e": {
-        "x": 0,
-        "y": 10,
-        "elevation": 5
-      },
-      "da026c08-d76a-a944-8e7b-096b752da9ed": {
-        "x": 10,
-        "y": 10,
-        "elevation": 5
-      },
-      "4e3d65cb-54c0-0681-28bf-bddcc7bdb571": {
-        "x": 10,
-        "y": 0,
-        "elevation": 5
-      }
-    },
-    "walls": [
-      {
-        "corner1": "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2",
-        "corner2": "f90da5e3-9e0e-eba7-173d-eb0b071e838e",
-        "wallType": "STRAIGHT",
-        "thickness": 0.2
-      },
-      {
-        "corner1": "f90da5e3-9e0e-eba7-173d-eb0b071e838e",
-        "corner2": "da026c08-d76a-a944-8e7b-096b752da9ed",
-        "wallType": "STRAIGHT",
-        "thickness": 0.2
-      },
-      {
-        "corner1": "da026c08-d76a-a944-8e7b-096b752da9ed",
-        "corner2": "4e3d65cb-54c0-0681-28bf-bddcc7bdb571",
-        "wallType": "STRAIGHT",
-        "thickness": 0.2
-      },
-      {
-        "corner1": "4e3d65cb-54c0-0681-28bf-bddcc7bdb571",
-        "corner2": "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2",
-        "wallType": "STRAIGHT",
-        "thickness": 0.2
-      }
-    ],
-    "rooms": {
-      "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2,4e3d65cb-54c0-0681-28bf-bddcc7bdb571,da026c08-d76a-a944-8e7b-096b752da9ed,f90da5e3-9e0e-eba7-173d-eb0b071e838e": {
-        "name": "A Room"
-      }
-    },
-    "wallTextures": [],
-    "floorTextures": {},
-    "newFloorTextures": {
-      "4e3d65cb-54c0-0681-28bf-bddcc7bdb571,71d4f128-ae80-3d58-9bd2-711c6ce6cdf2,da026c08-d76a-a944-8e7b-096b752da9ed,f90da5e3-9e0e-eba7-173d-eb0b071e838e": {
-        "repeat": 100,
-        "roughnessmap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_roughness.jpg",
-        "ambientmap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_ambientOcclusion.jpg",
-        "normalmap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_normal.jpg",
-        "colormap": "textures/Floor/Terrazzo_Tiles_001/Terrazzo_Tiles_001_basecolor.jpg",
-        "color": "#FFFFFF",
-        "emissive": "#000000",
-        "reflective": 0.5,
-        "shininess": 0.5
-      }
-    },
-    "carbonSheet": {},
-    "units": "m"
-  },
-  "items": [
-  ]
+    "items": []
 }
