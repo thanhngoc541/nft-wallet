@@ -11,6 +11,7 @@ import Wall from './components/Objects/Wall';
 import FloatingButtons from './components/UIComponents/FloatingButtons';
 import BoundingBox from './components/HelperComponents/BoundingBox';
 import ObjectDetails from './components/UIComponents/ObjectDetails';
+import WallDetails from './components/UIComponents/WallDetails';
 import * as default_json_room from './default_room.json';
 import { Bluesprint } from './bluesprint';
 import { ConvertJson2DTo3D } from './helpers/Convert';
@@ -20,6 +21,7 @@ function App() {
     const [walls, setWalls] = useState(ConvertJson2DTo3D(JSON.parse(default_room).floorplan));
     const [objects, setObjects] = useState([]);
     const [focusedObject, setFocusedObject] = useState(null);
+    const [focusedWall, setFocusedWall] = useState(null);
     const [blueprint, setBlueprint] = useState({});
     const [mode, setMode] = useState('');
 
@@ -284,7 +286,14 @@ function App() {
     const getWalls = () => (
         <Suspense fallback={null}>
             {walls.map((wall, index) => (
-                <Wall placeObject={placeObject} key={'wall' + index.toString()} wall={wall} />
+                <Wall
+                    setFocusedWall={() => {
+                        if (mode == 'edit wall') setFocusedWall(wall);
+                    }}
+                    placeObject={placeObject}
+                    key={'wall' + index.toString()}
+                    wall={wall}
+                />
             ))}
         </Suspense>
     );
@@ -330,6 +339,7 @@ function App() {
                     deleteFocused={deleteFocused}
                     clearFocused={clearFocused}
                 />
+                <WallDetails mode={mode} wall={focusedWall} clearFocused={() => setFocusedWall(null)} />
                 <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
                     <Orbit />
                     <Lights />
