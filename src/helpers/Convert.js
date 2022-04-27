@@ -26,7 +26,7 @@ export const ConvertJson2DTo3D = (data) => {
     console.log('as floorX', floorX)
     console.log('as minZ', minZ)
     console.log('as pos floor', [floorX/2 + minX, 0.1, floorZ/2 + minZ])
-    let floor3D = new WallModel([floorX, 0.2, floorZ], [floorX/2 + minX, 0.1, floorZ/2 + minZ], null, '/wood.jpg')
+    let floor3D = new WallModel([floorX, 0.2, floorZ], [floorX/2 + minX, -0.1, floorZ/2 + minZ], null, '/wood.jpg')
 
     // sàn nhà
     walls3D.push(floor3D);
@@ -43,8 +43,10 @@ export const ConvertJson2DTo3D = (data) => {
            Oyz.push(walls[i]);
        }
     }
-    // Oyz
 
+
+
+    // Oyz
     let wallZ = Math.abs(corners[Oyz[0].corner1].y - corners[Oyz[0].corner2].y)
     let deltaX = Math.abs(corners[Oyz[0].corner1].x - corners[Oyz[1].corner2].x)
 
@@ -53,7 +55,6 @@ export const ConvertJson2DTo3D = (data) => {
 
 
     // Oxy
-
     let wallX = Math.abs(corners[Oxy[0].corner1].x - corners[Oxy[0].corner2].x)
     let deltaY = Math.abs(corners[Oxy[0].corner1].y - corners[Oxy[1].corner2].y)
 

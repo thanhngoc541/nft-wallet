@@ -1,25 +1,25 @@
-import {useFrame, useLoader} from '@react-three/fiber';
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { useFrame, useLoader } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as THREE from 'three';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Model = (props) => {
     const model = useLoader(GLTFLoader, process.env.PUBLIC_URL + props.path);
     console.log('DEBUG: GLTF model ', model);
     const ref = useRef();
-    const [texture, setTexture] = useState(null)
+    const [texture, setTexture] = useState(null);
 
     // handle texture of object
     useEffect(() => {
-        if (props.texture && props.texture.includes("mp4")) {
-            console.log("DEBUG: create video texture ")
-            const vid = document.createElement("video");
+        if (props.texture && props.texture.includes('mp4')) {
+            console.log('DEBUG: create video texture ');
+            const vid = document.createElement('video');
             vid.src = props.texture;
-            vid.crossOrigin = "Anonymous";
+            vid.crossOrigin = 'Anonymous';
             vid.loop = true;
             vid.muted = true;
-            vid.play().then(r => {
-                console.log('video is running')
+            vid.play().then((r) => {
+                console.log('video is running');
             });
             let texture = new THREE.VideoTexture(vid);
             texture.encoding = THREE.sRGBEncoding;
@@ -28,7 +28,7 @@ const Model = (props) => {
             let texture = new THREE.TextureLoader().load(props.texture);
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set( 4, 4 );
+            texture.repeat.set(4, 4);
             setTexture(texture);
         }
     }, []);
@@ -55,16 +55,19 @@ const Model = (props) => {
     });
     model.scene.traverse((child) => {
         if (child.isMesh) {
-            console.log("DEBUG: mesh child of model.scene ", child)
+            console.log('DEBUG: mesh child of model.scene ', child);
             child.castShadow = true;
             child.receiveShadow = true;
+            // child.material.colorWrite = false;
+            // child.material.renderOrder = Infinity;
+
             if (texture) {
                 // define the child of screen (GTFL model)
                 if (child.name === 'Screen') {
-                    console.log('DEBUG: add texture to screen ', child)
+                    console.log('DEBUG: add texture to screen ', child);
                     child.material = new THREE.MeshStandardMaterial({
                         map: texture,
-                        emissiveMap: texture
+                        emissiveMap: texture,
                     });
                 }
             }

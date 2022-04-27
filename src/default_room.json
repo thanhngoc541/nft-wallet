@@ -3,10 +3,26 @@
     "version": "2.0.1a",
     "boundary": {
       "points": [
-        {"x":-20.0, "y": -20.0, "elevation": 5.0},
-        {"x":20.0, "y": -20.0, "elevation": 5.0},
-        {"x":20.0, "y": 20.0, "elevation": 5.0},
-        {"x":-20.0, "y": 20.0, "elevation": 5.0}
+        {
+          "x": -80.0,
+          "y": -80.0,
+          "elevation": 5.0
+        },
+        {
+          "x": 80.0,
+          "y": -80.0,
+          "elevation": 5.0
+        },
+        {
+          "x": 80.0,
+          "y": 80.0,
+          "elevation": 5.0
+        },
+        {
+          "x": -80.0,
+          "y": 80.0,
+          "elevation": 5.0
+        }
       ],
       "style": {
         "color": "#00FF00",
@@ -15,7 +31,7 @@
         "repeat": 3000
       }
     },
-    "corners":        {
+    "corners": {
       "71d4f128-ae80-3d58-9bd2-711c6ce6cdf2": {
         "x": 0,
         "y": 0,

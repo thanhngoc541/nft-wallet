@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useBox } from '@react-three/cannon';
 import * as THREE from 'three';
-import { useLoader } from '@react-three/fiber';
+import { useLoader, useFrame } from '@react-three/fiber';
 export default (props) => {
     const wall = props.wall;
     const [ref, api] = useBox(() => ({ args: wall.args, position: wall.position, rotation: wall.rotation }));
+    const wallRef = useRef();
+    const [color, setColor] = useState(wall.color);
     let texture = wall.texture != null ? useLoader(THREE.TextureLoader, process.env.PUBLIC_URL + wall.texture) : null;
     const getWallType = (wall) => {
         if (!wall) return 3;
@@ -12,6 +14,11 @@ export default (props) => {
         if (wall.args[1] < wall.args[2] && wall.args[1] < wall.args[0]) return 1;
         if (wall.args[2] < wall.args[1] && wall.args[2] < wall.args[0]) return 2;
     };
+    useFrame((scene, delta) => {
+        console.log(wall.color);
+        console.log(color);
+        if (color != wall.color) setColor(wall.color);
+    });
     var onBeforeRender = function (renderer, scene, camera, geometry, material, group) {
         // this is one way. adapt to your use case.
 
@@ -39,6 +46,7 @@ export default (props) => {
                 // castShadow
                 onPointerDown={(e) => {
                     props.placeObject([e.point.x, e.point.y, e.point.z], wall.args, wall);
+                    props.setFocusedWall();
                 }}
                 rotation={wall.rotation}
                 receiveShadow
@@ -60,10 +68,12 @@ export default (props) => {
         <mesh
             // castShadow
             onPointerDown={(e) => {
-                if (!wall.isHiding) props.placeObject([e.point.x, e.point.y, e.point.z], wall.args, wall);
+                console.log('wall click');
+                if (wall.isHiding) return;
+                props.placeObject([e.point.x, e.point.y, e.point.z], wall.args, wall);
+                props.setFocusedWall(wall);
             }}
             receiveShadow
-            // ref={ref}
             userData={
                 new THREE.Vector3(
                     type != 0 ? 0 : wall.position[0] > 0 ? -1 : 1,
@@ -71,6 +81,7 @@ export default (props) => {
                     type != 2 ? 0 : wall.position[2] > 0 ? -1 : 1,
                 )
             }
+            ref={wallRef}
             rotation={wall.rotation}
             args={wall.args}
             position={wall.position}
@@ -79,9 +90,9 @@ export default (props) => {
         >
             <boxBufferGeometry args={wall.args}></boxBufferGeometry>
             <meshPhysicalMaterial
-                map={texture}
-                color={wall.color}
-                // transparent
+                // map={texture}
+                color={color}
+                transparent={true}
                 // side={THREE.BackSide}
                 // opacity={1}
             ></meshPhysicalMaterial>

@@ -15,6 +15,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import FoundationIcon from '@mui/icons-material/Foundation';
+import FoundationTwoToneIcon from '@mui/icons-material/FoundationTwoTone';
 export default function FloatingActionButtons(props) {
     const [openWallCreator, setOpenWallCreator] = useState(false);
     const [openAddModel, setOpenaddModel] = useState(false);
@@ -34,11 +36,7 @@ export default function FloatingActionButtons(props) {
     };
     return (
         <Box style={{ position: 'absolute', bottom: '10px', right: '10px' }} sx={{ '& > :not(style)': { m: 1 } }}>
-            <Fab
-                color="primary"
-                aria-label="transform"
-                onClick={props.handleTransform}
-            >
+            <Fab color="primary" aria-label="transform" onClick={props.handleTransform}>
                 T
             </Fab>
             <SwipeableDrawer
@@ -67,6 +65,23 @@ export default function FloatingActionButtons(props) {
             </SwipeableDrawer>
             <Fab color="primary" aria-label="add wall" onClick={() => setOpenWallCreator(!openWallCreator)}>
                 <ConstructionIcon />
+            </Fab>
+            <Fab
+                color="primary"
+                aria-label="edit wall"
+                onClick={() => {
+                    if (props.mode == 'edit wall') {
+                        props.setMode('');
+                    } else {
+                        props.setMode('edit wall');
+                    }
+                }}
+            >
+                {props.mode == 'edit wall' ? (
+                    <FoundationTwoToneIcon></FoundationTwoToneIcon>
+                ) : (
+                    <FoundationIcon></FoundationIcon>
+                )}
             </Fab>
             <Fab
                 color="primary"
