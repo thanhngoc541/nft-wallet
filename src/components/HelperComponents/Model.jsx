@@ -54,8 +54,8 @@ const Model = (props) => {
         );
     });
     model.scene.traverse((child) => {
-        console.log("DEBUG: child of model.scene ", child)
         if (child.isMesh) {
+            console.log("DEBUG: mesh child of model.scene ", child)
             child.castShadow = true;
             child.receiveShadow = true;
             if (texture) {
