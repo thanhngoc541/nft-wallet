@@ -137,6 +137,12 @@ function App() {
         object.customRotationY = customRotationY;
     };
 
+    const handleAddTexture = (object, item) => {
+        console.log("DEBUG: add texture into object ", object);
+        console.log('DEBUG: handle add texture ', item)
+        object.texture = item.value;
+        setObjects([...objects, object]);
+    };
     let addModel = (model) => {
         currentObject = model;
     };
@@ -231,7 +237,7 @@ function App() {
                         >
                             <Model
                                 setFocusedObject={() => {
-                                    console.log(object);
+                                    console.log('DEBUG: focus object ', object);
                                     if (mode == 'edit') setFocusedObject(object);
                                 }}
                                 key={object.createTime.toString()}
@@ -266,7 +272,7 @@ function App() {
                         >
                             <Model
                                 setFocusedObject={() => {
-                                    console.log(object);
+                                    console.log('DEBUG: focus object ', object);
                                     if (mode == 'edit') setFocusedObject(object);
                                 }}
                                 key={object.createTime.toString()}
@@ -338,6 +344,7 @@ function App() {
                     object={focusedObject}
                     deleteFocused={deleteFocused}
                     clearFocused={clearFocused}
+                    handleAddTexture={(e) => handleAddTexture(focusedObject, e)}
                 />
                 <WallDetails mode={mode} wall={focusedWall} clearFocused={() => setFocusedWall(null)} />
                 <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
