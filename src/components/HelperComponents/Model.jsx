@@ -50,6 +50,9 @@ const Model = (props) => {
         if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
+            // child.material.colorWrite = false;
+            // child.material.renderOrder = Infinity;
+
             if (texture) {
                 console.log('DEBUG: add material into object');
                 // child.geometry.setAttribute('args', [3.2, 1.9])

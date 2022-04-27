@@ -79,9 +79,9 @@ export default (props) => {
         >
             <boxBufferGeometry args={wall.args}></boxBufferGeometry>
             <meshPhysicalMaterial
-                map={texture}
+                // map={texture}
                 color={wall.color}
-                // transparent
+                transparent={true}
                 // side={THREE.BackSide}
                 // opacity={1}
             ></meshPhysicalMaterial>

@@ -6,6 +6,7 @@ import Lights from './components/Objects/Lights';
 import { Physics } from '@react-three/cannon';
 import Dragable from './components/HelperComponents/Dragable';
 import Model from './components/HelperComponents/Model';
+import Background from './components/Environments/Background';
 import Wall from './components/Objects/Wall';
 import FloatingButtons from './components/UIComponents/FloatingButtons';
 import BoundingBox from './components/HelperComponents/BoundingBox';
@@ -259,6 +260,7 @@ function App() {
                             position={object.calcPosition}
                             rotation={object.calcRotation}
                             attachedWall={object.attachedWall}
+                            object={object}
                         >
                             <Model
                                 setFocusedObject={() => {
@@ -331,6 +333,9 @@ function App() {
                 <Canvas shadows style={{ background: 'black' }} camera={{ position: [7, 7, 7] }}>
                     <Orbit />
                     <Lights />
+                    <Suspense fallback={null}>
+                        <Background></Background>
+                    </Suspense>
                     <Physics>
                         {getWalls()}
                         {getObjects()}
