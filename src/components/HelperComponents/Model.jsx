@@ -2,6 +2,7 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as THREE from 'three';
 import { useEffect, useRef, useState } from 'react';
+import {PlaneGeometry} from "three";
 
 const Model = (props) => {
     const model = useLoader(GLTFLoader, process.env.PUBLIC_URL + props.path);
@@ -25,11 +26,8 @@ const Model = (props) => {
             texture.encoding = THREE.sRGBEncoding;
             setTexture(texture);
         } else if (props.texture && (props.texture.includes('jpg') || props.texture.includes('png'))) {
-            let texture = new THREE.TextureLoader().load(props.texture);
-            texture.wrapS = THREE.RepeatWrapping;
-            texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(4, 4);
-            setTexture(texture);
+            console.log('texture: ', texture)
+            setTexture(props.texture);
         }
     }, []);
 
@@ -56,19 +54,39 @@ const Model = (props) => {
     model.scene.traverse((child) => {
         if (child.isMesh) {
             console.log('DEBUG: mesh child of model.scene ', child);
+            const width = child.geometry.boundingBox.max.x - child.geometry.boundingBox.min.x;
+            const height = child.geometry.boundingBox.max.y - child.geometry.boundingBox.min.y;
+            // const position = child.geometry.attributes.position;
+            // const rotation = child.geometry.attributes.rotation;
+
             child.castShadow = true;
             child.receiveShadow = true;
-            // child.material.colorWrite = false;
-            // child.material.renderOrder = Infinity;
 
             if (texture) {
                 // define the child of screen (GTFL model)
                 if (child.name === 'Screen') {
-                    console.log('DEBUG: add texture to screen ', child);
-                    child.material = new THREE.MeshStandardMaterial({
-                        map: texture,
-                        emissiveMap: texture,
-                    });
+                    new THREE.TextureLoader().load(
+                        texture,
+                        function ( texture ) {
+                            console.log('texture: ', texture)
+                            child.geometry = new PlaneGeometry(width, height);
+                            // child.geometry.attributes.position = position;
+                            // child.geometry.attributes.rotation = rotation;
+                            child.position.z = 0;
+                            child.rotation.y = Math.PI;
+                            child.geometry.computeBoundingBox();
+                            child.material = new THREE.MeshStandardMaterial({
+                                map: texture,
+                                side: THREE.DoubleSide
+                            });
+                        },
+
+                        undefined,
+
+                        function ( err ) {
+                            console.error( 'An error happened.' );
+                        }
+                    );
                 }
             }
             // child.material.side = THREE.DoubleSide;

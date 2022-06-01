@@ -12,11 +12,13 @@ export default (props) => {
 
     const handleFileSelect = (evt) => {
         let files = evt.target.files;
+        console.log("file", evt.target.files)
         if (!files.length) {
             alert('No file select');
             return;
         }
         let file = files[0];
+        ;
         let that = this;
         let reader = new FileReader();
         reader.onload = function (e) {

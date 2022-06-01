@@ -15,8 +15,6 @@ export default (props) => {
         if (wall.args[2] < wall.args[1] && wall.args[2] < wall.args[0]) return 2;
     };
     useFrame((scene, delta) => {
-        console.log(wall.color);
-        console.log(color);
         if (color != wall.color) setColor(wall.color);
     });
     var onBeforeRender = function (renderer, scene, camera, geometry, material, group) {
